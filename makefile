@@ -39,6 +39,7 @@ $(DEPS):$(SRCS) $(HPPS)
 #	makedepend  -f$(DEPS)>&/dev/null *.c
 -include $(DEPS)
 install:
+	cp -r ../gcad/bin/* bin/
 	cp $(PRJ).dll bin/
 clean:
 	-@rm *.o $(PRJ).dll *.dep *.res
