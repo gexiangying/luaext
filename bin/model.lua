@@ -46,6 +46,7 @@ surfaces[#surfaces +1] = {}
 local s = surfaces[#surfaces]
 --print( "surfacen = " .. i .. "  texid=" .. texid .. "  pointn=" .. pointn .. "  tri=" .. tri .. "  quadric=" .. quadric)
 s.textured = texid
+s.lines = {}
 s.points = {}
 s.triangles = {}
 s.quadrangles = {}
