@@ -1,9 +1,22 @@
 package.cpath="?.dll"
 local luaext = require "luaext"
-model = {objects = {}}
+model = {lk = {0.011707,-356.0,-68.0,-1.0},
+texs={
+{"mages/mb04.bmp","REPEAT_TEXTURE"},
+{"images/rosewd.bmp","REPEAT_TEXTURE"},
+{"images/pine.bmp","REPEAT_TEXTURE"},
+{"images/sunset.bmp","REPEAT_TEXTURE"},
+{"images/lack2.bmp","REPEAT_TEXTURE"},
+{"images/128x128_1.bmp","REPEAT_TEXTURE"},
+{"images/128x128_4.bmp","REPEAT_TEXTURE"},
+{"images/128x128_3.bmp","REPEAT_TEXTURE"},
+{"images/128x128_2.bmp","REPEAT_TEXTURE"},
+{"images/kb.bmp","REPEAT_TEXTURE"},
+},
+objects = {},
+}
 local number = 2
 --luaext.test("hello",ID)
-
 
 --[[
 function add_obj(window,obj)
