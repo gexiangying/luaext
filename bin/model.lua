@@ -2,7 +2,7 @@ package.cpath="?.dll"
 local luaext = require "luaext"
 model = {lk = {0.011707,-356.0,-68.0,-1.0},
 texs={
-{"mages/mb04.bmp","REPEAT_TEXTURE"},
+{"images/mb04.bmp","REPEAT_TEXTURE"},
 {"images/rosewd.bmp","REPEAT_TEXTURE"},
 {"images/pine.bmp","REPEAT_TEXTURE"},
 {"images/sunset.bmp","REPEAT_TEXTURE"},
