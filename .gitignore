@@ -6,9 +6,6 @@
 # *~
 *.[oa]
 *.res
-*.exe
-*.dll
 *.dep
 *.swp
-bin/*.lua
 tags
