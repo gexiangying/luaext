@@ -1,7 +1,7 @@
 #include <windows.h>
 #include "include/lua.h"
 #include "include/lauxlib.h"
-static int test(lua_State *L)
+static int msg(lua_State *L)
 {
 const char* title = luaL_checkstring(L,1);
 const char* content = luaL_checkstring(L,2);
@@ -9,7 +9,7 @@ const char* content = luaL_checkstring(L,2);
 	return 0;
 }
 static const struct luaL_Reg luaext [] = {
-	{"test",test},
+	{"msg",msg},
 	{NULL,NULL}
 };
 int luaopen_luaext(lua_State *L){

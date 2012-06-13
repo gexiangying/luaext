@@ -100,15 +100,22 @@ end --objnum
 end --while
 end --function
 
-function on_command(cmd)
+function on_command(cmd,child)
 if(cmd == ID + 2 and number < 27) then 
 local apxname = number .. ".apx"
 number = number + 1
 load_apx(apxname)
-else luaext.test("on_command",tostring(cmd))
+elseif(cmd == ID +3 )then
+set_lineframe(frm,1)
+elseif(cmd == ID + 4) then
+set_lineframe(frm,0)
+else luaext.msg("on_command",tostring(cmd))
 end
 end
 
+function select_main(index)
+luaext.msg("select",tostring(index))
+end
 load_apx("1.apx")
 
 
