@@ -1,5 +1,6 @@
 package.cpath="?.dll"
 local luaext = require "luaext"
+select_ary = {ctrlkey = 0}
 model = {lk = {0.011707,-356.0,-68.0,-1.0},
 texs={
 {"images/mb04.bmp","REPEAT_TEXTURE"},
@@ -17,7 +18,6 @@ objects = {},
 }
 local number = 2
 --luaext.test("hello",ID)
-
 --[[
 function add_obj(window,obj)
 print(window)
@@ -117,9 +117,32 @@ else luaext.msg("on_command",tostring(cmd))
 end
 end
 
-function select_main(index)
-luaext.msg("select",tostring(index))
+function begin_select(ctrlkey)
+if(ctrlkey == 0) then
+select_ary = { ctrlkey = 0}
+else
+select_ary.ctrlkey = 1
 end
-load_apx("1.apx")
+end
 
+function end_select()
+end
+
+function select_main(index)
+--luaext.msg("select",tostring(index))
+if(select_ary.ctrlkey == 1) then
+select_ary[index] = select_ary[index] and nil
+else
+select_ary[index] = {}
+end
+end
+
+function select_sub(mainindex,subindex)
+if(select_ary[mainindex]) then
+select_ary[mainindex][subindex] = {}
+end
+end
+
+load_apx("1.apx")
+--trace_out("hello" .. " world\n")
 
