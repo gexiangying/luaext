@@ -3,8 +3,8 @@
 #include "include/lauxlib.h"
 static int msg(lua_State *L)
 {
-const char* title = luaL_checkstring(L,1);
-const char* content = luaL_checkstring(L,2);
+	const char* title = luaL_checkstring(L,1);
+	const char* content = luaL_checkstring(L,2);
 	MessageBox(NULL,content,title,MB_OK);
 	return 0;
 }
