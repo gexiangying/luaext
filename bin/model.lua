@@ -1,6 +1,6 @@
 package.cpath="?.dll"
 local luaext = require "luaext"
-select_ary = {ctrlkey = 0}
+select_ary = {}
 model = {lk = {0.011707,-356.0,-68.0,-1.0},
 texs={
 {"images/mb04.bmp","REPEAT_TEXTURE"},
@@ -119,22 +119,31 @@ end
 
 function begin_select(ctrlkey)
 if(ctrlkey == 0) then
-select_ary = { ctrlkey = 0}
+select_ary = {}
 else
-select_ary.ctrlkey = 1
+select_ary.ctrlkey = true
 end
 end
 
 function end_select()
 end
 
+local function trace_select()
+trace_out("select_ary[] = ")
+for k,v in pairs(select_ary) do
+trace_out( k .. " ")
+end
+trace_out("\n")
+end
+
 function select_main(index)
 --luaext.msg("select",tostring(index))
-if(select_ary.ctrlkey == 1) then
-select_ary[index] = select_ary[index] and nil
+if(select_ary.ctrlkey and select_ary[index]) then
+select_ary[index] =  nil
 else
-select_ary[index] = {}
+select_ary[index] = true
 end
+trace_select()
 end
 
 function select_sub(mainindex,subindex)
