@@ -1,6 +1,7 @@
 package.cpath="?.dll;?51.dll"
 local luaext = require "luaext"
 local iup = require "iuplua"
+local redis = require "luaredis"
 function test_iup()
 text_location = iup.text{expand="HORIZONTAL", id="text_location"}
 btn_browse = iup.button{title="Browse", rastersize="x22",id="btn_browse"}
