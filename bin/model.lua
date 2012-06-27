@@ -1,5 +1,7 @@
 package.cpath="?.dll"
 local luaext = require "luaext"
+local wx = require "wx"
+wx.wxGetApp():MainLoop()
 select_ary = {}
 model = {lk = {0.011707,-356.0,-68.0,-1.0},
 texs={
@@ -154,4 +156,3 @@ end
 
 load_apx("1.apx")
 --trace_out("hello" .. " world\n")
-
