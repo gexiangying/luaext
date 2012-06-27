@@ -1,7 +1,40 @@
-package.cpath="?.dll"
+package.cpath="?.dll;?51.dll"
 local luaext = require "luaext"
---local wx = require "wx"
---wx.wxGetApp():MainLoop()
+local iup = require "iuplua"
+function test_iup()
+text_location = iup.text{expand="HORIZONTAL", id="text_location"}
+btn_browse = iup.button{title="Browse", rastersize="x22",id="btn_browse"}
+multi = iup.multiline{expand="YES"}
+dlg = iup.dialog
+{
+    iup.vbox
+    {
+        iup.label{title="Location:"},
+        iup.hbox
+        {
+            text_location,
+            btn_browse
+            ; margin="0x0"
+        },
+        iup.label{title="Text:"},
+				--multi = iup.multiline{expand="YES"},
+				multi,
+    }
+    ;title="iuplua sample", size="200x100", margin="10x10"
+}
+
+function btn_browse:action()
+    local dlg = iup.filedlg{dialogtype="DIR"}
+    dlg:popup()
+    if dlg.status == "0" then
+        text_location.value = dlg.value
+    end
+end
+
+--dlg:show()
+dlg:show()
+iup.MainLoop()
+end
 select_ary = {}
 model = {lk = {0.011707,-356.0,-68.0,-1.0},
 texs={
@@ -115,6 +148,7 @@ elseif(cmd == ID + 5) then
 set_singleselect(child)
 elseif(cmd == ID + 6) then
 set_mulselect(child)
+test_iup()
 else luaext.msg("on_command",tostring(cmd))
 end
 end
@@ -156,3 +190,5 @@ end
 
 load_apx("1.apx")
 --trace_out("hello" .. " world\n")
+
+
