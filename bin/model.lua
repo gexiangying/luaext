@@ -37,6 +37,11 @@ end
 dlg:show()
 iup.MainLoop()
 end
+function test_iup2()
+res, name = iup.GetParam("Title", nil,
+    "Give your name: %s\n","")
+iup.Message("Hello!",name)
+end
 select_ary = {}
 model = {lk = {0.011707,-356.0,-68.0,-1.0},
 texs={
@@ -150,7 +155,7 @@ elseif(cmd == ID + 5) then
 set_singleselect(child)
 elseif(cmd == ID + 6) then
 set_mulselect(child)
-test_iup()
+test_iup2()
 else luaext.msg("on_command",tostring(cmd))
 end
 end
