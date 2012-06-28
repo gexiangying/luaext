@@ -1,6 +1,7 @@
 package.cpath="?.dll;?51.dll"
 local luaext = require "luaext"
 local iup = require "iuplua"
+local iupcontrol = require( "iupluacontrols" )
 local redis = require "luaredis"
 function test_iup()
 text_location = iup.text{expand="HORIZONTAL", id="text_location"}
