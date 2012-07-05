@@ -109,6 +109,8 @@ local function load_apx(name)
 				s.points = {}
 				s.triangles = {}
 				s.quadrangles = {}
+				--s.outer = { 1,2,3,4}
+				--s.inners= { {1,2,3},{2,3,4}}
 				for k =1 , pointn do
 					line = f:read("*line") --point line
 					s.points[k] = {}
