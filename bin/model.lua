@@ -111,7 +111,7 @@ local function load_apx(name)
 				s.quadrangles = {}
 				--s.outer = { 1,2,3,4}
 				--s.inners= { {1,2,3},{2,3,4}}
-				s.texts = { {ptno=1,r=1,g=0,b=0,str="str1"},{ptno=2,r=1,g=0,b=0,str="str2≤‚ ‘"}}
+				--s.texts = { {ptno=1,r=1,g=0,b=0,str="str1"},{ptno=2,r=1,g=0,b=0,str="str2≤‚ ‘"}}
 				for k =1 , pointn do
 					line = f:read("*line") --point line
 					s.points[k] = {}
