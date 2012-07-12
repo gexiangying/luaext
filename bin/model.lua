@@ -3,7 +3,21 @@ local luaext = require "luaext"
 local iup = require "iuplua"
 local iupcontrol = require( "iupluacontrols" )
 local redis = require "luaredis"
-
+-- ID frm 
+-- add_obj(frm,o)
+-- remove_obj(frm,objindex)
+-- set_lineframe(frm,flag=0 or 1)
+-- trace_out(str)
+-- x,y,z client_2_world(scene,x,y)
+-- scene_select(scene,x,y,w,h,single)
+-- scene* new_child(frm,title)
+-- void scene_clip(scene,x1,y1,z1,x2,y2,z2)
+-- void scene_onpain(scene)
+-- void scene_scale(scene,scale)
+-- void scene_cen(scene,x,y,z)
+-- void scene_rotate(scene,x,y,z)
+-- void scene_offset(scene,x,y,z)
+-- void scene_ortho(scene,0 or 1)
 function test_iup()
 	text_location = iup.text{expand="HORIZONTAL", id="text_location"}
 	btn_browse = iup.button{title="Browse", rastersize="x22",id="btn_browse"}
@@ -162,7 +176,8 @@ function on_command(cmd,child)
 		set_singleselect(child)
 	elseif(cmd == ID + 6) then
 		set_mulselect(child)
-		test_iup2()
+		--new_child(frm,"formlua")
+		--test_iup2()
 	else luaext.msg("on_command",tostring(cmd))
 	end
 end
@@ -202,6 +217,20 @@ function select_sub(mainindex,subindex)
 	end
 end
 
+function on_lbuttondown(scene,flags,x,y)
+--	trace_out("lua:on_lbuttondown()\n")
+scene_select(scene,x,y,10,10,1)
+end
+
+function on_lbuttonup(scene,flags,x,y)
+	trace_out("lua:on_lbuttonup()\n")
+end
+
+function on_mousemove(scene,flags,x,y)
+	x1,y1,z1 = client_2_world(scene,x,y)
+	str = string.format("(%f%f%f)\n",x1,y1,z1)
+	trace_out("lua:on_mousemoven" .. str )
+end
 load_apx("1.apx")
 --trace_out("hello" .. " world\n")
 
