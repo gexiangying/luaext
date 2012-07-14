@@ -1,18 +1,28 @@
-sub1 = new_menu()
-sub2 = new_menu()
-sub3 = new_menu()
-insert_menu(sub1,id+1,"test1_1")
-insert_menu(sub1,id+2,"test1_2")
-insert_menu(sub2,id+3,"lineframe")
-insert_menu(sub2,id+4,"render")
-insert_menu(sub3,id+5,"single select")
-insert_menu(sub3,id+6,"multi select")
-append_menu(hmain,sub1,"test1")
-append_menu(hmain,sub2,"render")
-append_menu(hmain,sub3,"select")
-set_nbuttons(4)
-add_buttons(8,10002)
-add_buttons(9,id + 2)
-add_buttons(10,id + 3)
-add_buttons(11,id + 4)
-create_buttons(frm,"toolbar.bmp")
+module(...,package.seeall)
+menu = { name = "test", items = {
+	{ id = ID + 2, name = "test1"},
+	{ id = ID + 3, name = "test2"},
+  { id = ID + 4, name = "test3"},
+	},
+}
+function create_menu()
+add_menu(frm,menu)
+end
+toolbar = { bmpname = "toolbar.bmp",nbmps = 36,id = 11040,dxButton = 0, dyButton = 0,dxBitmap = 16,dyBitmap = 15,
+	buttons = {
+		{iBitmap = 8,idCommand = ID + 2, fsState = TBSTATE_ENABLED, fsStyle = BTNS_BUTTON, iString = "tool1"},
+		{iBitmap = 9,idCommand = ID + 3, fsState = TBSTATE_ENABLED, fsStyle = BTNS_BUTTON, iString = "tool2"},
+		{iBitmap = 10,idCommand = ID + 4, fsState = TBSTATE_ENABLED, fsStyle = BTNS_BUTTON, iString = "tool3"},
+	},
+}
+toolbar1 = { bmpname = "toolbar.bmp",nbmps = 36,id = 11041,dxButton = 0, dyButton = 0,dxBitmap = 16,dyBitmap = 15,
+	buttons = {
+		{iBitmap = 8,idCommand = ID + 5, fsState = TBSTATE_ENABLED, fsStyle = BTNS_BUTTON, iString = "≤‚ ‘5"},
+		{iBitmap = 9,idCommand = ID + 6, fsState = TBSTATE_ENABLED, fsStyle = BTNS_BUTTON, iString = "tool6"},
+		{iBitmap = 10,idCommand = ID + 7, fsState = TBSTATE_ENABLED, fsStyle = BTNS_BUTTON, iString = "tool7"},
+	},
+}
+function create_toolbar()
+crt_toolbar(frm,toolbar)
+crt_toolbar(frm,toolbar1)
+end

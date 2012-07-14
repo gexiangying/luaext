@@ -3,6 +3,9 @@ local luaext = require "luaext"
 local iup = require "iuplua"
 local iupcontrol = require( "iupluacontrols" )
 local redis = require "luaredis"
+local interface = require "interface"
+interface.create_menu()
+interface.create_toolbar()
 -- ID frm 
 -- add_obj(frm,o)
 -- remove_obj(frm,objindex)
@@ -18,6 +21,11 @@ local redis = require "luaredis"
 -- void scene_rotate(scene,x,y,z)
 -- void scene_offset(scene,x,y,z)
 -- void scene_ortho(scene,0 or 1)
+-- int is_ctr_down()
+-- void crt_toolbar(frm,toolbar)
+-- void remove_toolbar(frm,id)
+-- TBSTATE_ENABLED BTNS_BUTTON BTNS_SEP
+-- add_menu(frm,{name=,items = { { id=,name=},}})
 function test_iup()
 	text_location = iup.text{expand="HORIZONTAL", id="text_location"}
 	btn_browse = iup.button{title="Browse", rastersize="x22",id="btn_browse"}
@@ -171,7 +179,8 @@ function on_command(cmd,child)
 	elseif(cmd == ID +3 )then
 		set_lineframe(frm,1)
 	elseif(cmd == ID + 4) then
-		set_lineframe(frm,0)
+		--set_lineframe(frm,0)
+		remove_toolbar(frm,11041)
 	elseif(cmd == ID + 5) then
 		set_singleselect(child)
 	elseif(cmd == ID + 6) then
@@ -229,7 +238,7 @@ end
 function on_mousemove(scene,flags,x,y)
 	x1,y1,z1 = client_2_world(scene,x,y)
 	str = string.format("(%f%f%f)\n",x1,y1,z1)
-	trace_out("lua:on_mousemoven" .. str )
+--	trace_out("lua:on_mousemoven" .. str )
 end
 load_apx("1.apx")
 --trace_out("hello" .. " world\n")
