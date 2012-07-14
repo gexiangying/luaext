@@ -179,14 +179,9 @@ function on_command(cmd,child)
 	elseif(cmd == ID +3 )then
 		set_lineframe(frm,1)
 	elseif(cmd == ID + 4) then
-		--set_lineframe(frm,0)
+		set_lineframe(frm,0)
+	elseif(cmd == ID +5) then
 		remove_toolbar(frm,11041)
-	elseif(cmd == ID + 5) then
-		set_singleselect(child)
-	elseif(cmd == ID + 6) then
-		set_mulselect(child)
-		--new_child(frm,"formlua")
-		--test_iup2()
 	else luaext.msg("on_command",tostring(cmd))
 	end
 end
