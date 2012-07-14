@@ -3,6 +3,24 @@ local luaext = require "luaext"
 local iup = require "iuplua"
 local iupcontrol = require( "iupluacontrols" )
 local redis = require "luaredis"
+--[[
+-- redis new_redis(servername,portno)
+-- string redis:info()
+-- void redis:close() 
+-- int redis:ping() 1=OK 0=error
+-- int redis:del(key) 1=OK
+-- int redis:hdel(key,field) number,0=error
+-- string,int redis:get(key) 1=ok 0=error
+-- int string redis:incr(key) str=error
+-- int redis:set(key,value) 1=ok 0=error
+-- int redis:hset(key,field,value) number,0=error
+-- int redis:hkeys(key) 1=ok
+-- string,int redis:hget(key,field) 1=ok
+-- string redis:getline(size)
+-- int redis:hgetall(key) 1=ok
+-- int,error(string) redis:hincr(key,field)
+-- int redis:subscribe() 0 = error
+--]]
 local interface = require "interface"
 interface.create_menu()
 interface.create_toolbar()
