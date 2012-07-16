@@ -90,12 +90,20 @@ toolbar = { bmpname = "toolbar.bmp",nbmps = 36,id = 11040,dxButton = 0, dyButton
 		{iBitmap = 11,idCommand = ID + 4, fsState = TBSTATE_ENABLED, fsStyle = BTNS_BUTTON, iString = "tool3"},
 	},
 }
---]]
 toolbar1 = { bmpname = "toolbar.bmp",nbmps = 36,id = 11041,dxButton = 0, dyButton = 0,dxBitmap = 16,dyBitmap = 15,
 	buttons = {
 		{iBitmap = 8,idCommand = ID + 5, fsState = TBSTATE_ENABLED, fsStyle = BTNS_BUTTON, iString = "≤‚ ‘5"},
 		{iBitmap = 9,idCommand = ID + 6, fsState = TBSTATE_ENABLED, fsStyle = BTNS_BUTTON, iString = "tool6"},
 		{iBitmap = 10,idCommand = ID + 7, fsState = TBSTATE_ENABLED, fsStyle = BTNS_BUTTON, iString = "tool7"},
+	},
+}
+--]]
+local tool1 = toolbar:new{
+	id = 11041,
+	buttons = {
+		button:new{iBitmap = 8,idCommand  = ID + 5,iString = "tool5"},
+		button:new{iBitmap = 9,idCommand  = ID + 6,iString = "tool6"},
+		button:new{iBitmap = 10,idCommand  = ID + 7,iString = "tool7"},
 	},
 }
 function create_toolbar()
@@ -109,5 +117,5 @@ function create_toolbar()
 		tool:add_button(but)
 	end
 	crt_toolbar(frm,tool)
-	crt_toolbar(frm,toolbar1)
+	crt_toolbar(frm,tool1)
 end
