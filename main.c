@@ -8,6 +8,7 @@
 #define S_TOKEN 4
 #define L_TOKEN 5
 #define E_TOKEN 6
+#define T_TOKEN 7
 typedef struct _g_token_
 {
 	int type; 
@@ -56,6 +57,12 @@ static G_TOKEN* number_token(const char** str)
 		}
 		lpstr++,index++;
 	}while(*lpstr != 0);
+	return token;
+}
+static G_TOKEN* t_token(const char** str)
+{
+	G_TOKEN* token = number_token(str);
+	token->type = T_TOKEN;
 	return token;
 }
 static G_TOKEN* s_token(const char** str)
@@ -168,6 +175,12 @@ static int str_machine(lua_State* L)
 		}
 		else if(*str == '-' || isdigit(*str)){
 			token = number_token(&str);
+			i++;
+			add_token(token,L,i);
+			free_token(token);
+		}
+		else if(*str == '#') {
+			token = t_token(&str);
 			i++;
 			add_token(token,L,i);
 			free_token(token);
