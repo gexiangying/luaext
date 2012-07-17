@@ -138,6 +138,7 @@ static void add_token(G_TOKEN* token,lua_State* L,int i)
 static int str_machine(lua_State* L)
 {
 	const char* str = lua_tostring(L,-1);
+	if(*str == '(') str++;
 	int i = 0;
 	lua_newtable(L);
 	G_TOKEN* token = NULL;
