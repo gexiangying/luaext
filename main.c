@@ -13,6 +13,11 @@ typedef struct _g_token_
 	int type; 
 	char* str;
 }G_TOKEN;
+static void free_token(G_TOKEN* token)
+{
+	free(token->str);
+	free(token);
+}
 static G_TOKEN* e_token(const char** str)
 {
 	G_TOKEN* token = (G_TOKEN*)calloc(1,sizeof(G_TOKEN));
@@ -135,37 +140,37 @@ static int str_machine(lua_State* L)
 			token = l_token(&str);
 			i++;
 			add_token(token,L,i);
-			free(token);
+			free_token(token);
 		}
 		else if(*str == '\''){
 			token = str_token(&str);
 			i++;
 			add_token(token,L,i);
-			free(token);
+			free_token(token);
 		}
 		else if(*str == '$') {
 			token = s_token(&str);
 			i++;
 			add_token(token,L,i);
-			free(token);
+			free_token(token);
 		}
 		else if(*str == '.'){
 			token = e_token(&str);
 			i++;
 			add_token(token,L,i);
-			free(token);
+			free_token(token);
 		}
 		else if(isalpha(*str)){
 			token = fun_token(&str);
 			i++;
 			add_token(token,L,i);
-			free(token);
+			free_token(token);
 		}
 		else if(*str == '-' || isdigit(*str)){
 			token = number_token(&str);
 			i++;
 			add_token(token,L,i);
-			free(token);
+			free_token(token);
 		}
 		else {
 			str++;
