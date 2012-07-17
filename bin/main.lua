@@ -3,6 +3,11 @@ local luaext = require "luaext"
 local iup = require "iuplua"
 local iupcontrol = require( "iupluacontrols" )
 local redis = require "luaredis"
+teststr = "IFCA(1,23),.CONST.,12.5,(2,4,5),'string',$"
+local t = luaext.str_machine(teststr)
+for k,v in ipairs(t) do
+trace_out(" type = " .. v["type"] .. ", value = " .. v["str"] .. "\n")
+end
 --[[
 -- redis new_redis(servername,portno)
 -- string redis:info()
@@ -253,7 +258,7 @@ function on_mousemove(scene,flags,x,y)
 	str = string.format("(%f%f%f)\n",x1,y1,z1)
 --	trace_out("lua:on_mousemoven" .. str )
 end
-load_apx("1.apx")
+--load_apx("1.apx")
 --trace_out("hello" .. " world\n")
 
 
