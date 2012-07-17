@@ -104,7 +104,7 @@ static G_TOKEN* fun_token(const char** str)
 	const char* lpstr = *str;
 	int flag = 0;
 	int index = 0;
-	while(1){
+	do{
 		if(*lpstr == '(') flag++;
 		else if(*lpstr == ')' && flag == 1) {
 			flag--;
@@ -117,7 +117,7 @@ static G_TOKEN* fun_token(const char** str)
 		}
 		lpstr++;
 		index++;
-	}
+	}while(*lpstr != 0);
 	return token;
 }
 static G_TOKEN* l_token(const char** str)
