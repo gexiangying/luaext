@@ -33,12 +33,12 @@ static G_TOKEN* e_token(const char** str)
 				index++,lpstr++;
 				token->str=calloc(index + 1,sizeof(char));
 				strncpy(token->str,*str,index);
-				*str = lpstr;
 				break;
 			}
 		}
 		lpstr++,index++;
 	}while(*lpstr != 0);
+	*str = lpstr;
 	return token;
 
 }
@@ -50,13 +50,13 @@ static G_TOKEN* number_token(const char** str)
 	int index = 0;
 	do{
 		if(*lpstr == ',' || *lpstr == ')'){
-			token->str=calloc(index + 1,sizeof(char));
-			strncpy(token->str,*str,index);
-			*str = lpstr;
 			break;
 		}
 		lpstr++,index++;
 	}while(*lpstr != 0);
+	token->str=calloc(index + 1,sizeof(char));
+	strncpy(token->str,*str,index);
+	*str = lpstr;
 	return token;
 }
 static G_TOKEN* t_token(const char** str)
@@ -89,12 +89,13 @@ static G_TOKEN* str_token(const char** str)
 				lpstr++;
 				token->str=calloc(index + 1,sizeof(char));
 				strncpy(token->str,*str,index);
-				*str = lpstr;
+				break;
 			}
 		}
 		index++;
 		lpstr++;
 	}while(*lpstr != 0);
+	*str = lpstr;
 	return token;
 }
 static G_TOKEN* fun_token(const char** str)
@@ -112,12 +113,13 @@ static G_TOKEN* fun_token(const char** str)
 			index++;
 			token->str=calloc(index + 1,sizeof(char));
 			strncpy(token->str,*str,index);
-			*str = lpstr;
 			break;
 		}
+		else if(*lpstr == ')') flag --;
 		lpstr++;
 		index++;
 	}while(*lpstr != 0);
+	*str = lpstr;
 	return token;
 }
 static G_TOKEN* l_token(const char** str)
@@ -131,8 +133,10 @@ static void add_token(G_TOKEN* token,lua_State* L,int i)
 	lua_newtable(L);
 	lua_pushinteger(L,token->type);
 	lua_setfield(L,-2,"type");
-	lua_pushstring(L,token->str);
-	lua_setfield(L,-2,"str");
+	if(token->str){
+		lua_pushstring(L,token->str);
+		lua_setfield(L,-2,"str");
+	}
 	lua_rawseti(L,-2,i);
 }
 static int str_machine(lua_State* L)
