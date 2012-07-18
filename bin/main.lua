@@ -80,13 +80,31 @@ scene_select(scene,x,y,10,10,1)
 end
 
 function on_lbuttonup(scene,flags,x,y)
-	trace_out("lua:on_lbuttonup()\n")
+	--trace_out("lua:on_lbuttonup()\n")
 end
 
 function on_mousemove(scene,flags,x,y)
 	x1,y1,z1 = client_2_world(scene,x,y)
 	str = string.format("(%f%f%f)\n",x1,y1,z1)
 --	trace_out("lua:on_mousemoven" .. str )
+end
+function on_mbuttondown(scene,flags,x,y)
+	--trace_out("lua:on_mbuttondown()\n")
+end
+function on_mbuttonup(scene,flags,x,y)
+	--trace_out("lua:on_mbuttonup()\n")
+end
+function on_rbuttondown(scene,flags,x,y)
+	--trace_out("lua:on_rbuttondown()\n")
+end
+function on_rbuttonup(scene,flags,x,y)
+	--trace_out("lua:on_rbuttonup()\n")
+end
+function on_rbuttondblclk(scene,flags,x,y)
+	--trace_out("lua:on_rbuttondblclk()\n")
+end
+function on_lbuttondblclk(scene,flags,x,y)
+	--trace_out("lua:on_lbuttondblclk()\n")
 end
 --load_apx("1.apx")
 --trace_out("hello" .. " world\n")

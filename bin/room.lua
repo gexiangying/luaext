@@ -81,19 +81,7 @@ end --function
 
 local items = 1
 function load_room_item()
-model.texs = model.texs or {
-				{"images/mb04.bmp","REPEAT_TEXTURE"},
-				{"images/rosewd.bmp","REPEAT_TEXTURE"},
-				{"images/pine.bmp","REPEAT_TEXTURE"},
-				{"images/sunset.bmp","REPEAT_TEXTURE"},
-				{"images/lack2.bmp","REPEAT_TEXTURE"},
-				{"images/128x128_1.bmp","REPEAT_TEXTURE"},
-				{"images/128x128_4.bmp","REPEAT_TEXTURE"},
-				{"images/128x128_3.bmp","REPEAT_TEXTURE"},
-				{"images/128x128_2.bmp","REPEAT_TEXTURE"},
-				{"images/kb.bmp","REPEAT_TEXTURE"},
-			} 
-	if items == 27 then return end
+if items == 27 then return end
 	local apxname = "room/" .. tostring(items) .. ".apx"
 	items = items + 1
 	load_apx(apxname)
