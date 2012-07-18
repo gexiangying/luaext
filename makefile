@@ -40,6 +40,8 @@ $(DEPS):$(SRCS) $(HPPS)
 -include $(DEPS)
 install:
 	cp $(PRJ).dll ../gcad/bin/
+	rm -rf bin/
+	mkdir bin
 	cp -r ../gcad/bin/* bin/
 clean:
 	-@rm *.o $(PRJ).dll *.dep *.res
