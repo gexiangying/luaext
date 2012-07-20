@@ -38,6 +38,26 @@ menu1 = { name = "test2", items = {
   { id = ID + 7, name = "test23"},
 	},
 }
+																		--better
+menu_steel = {													
+	name = "Steel",
+	items = {
+		{id=ID+130,name="Add Member"},
+		{id=ID+110,name="Property"},
+		{id=ID+120,name="Delete"},
+		{id=ID+101,name="H"},
+		{id=ID+102,name="L"},
+		{id=ID+103,name="T"},
+		{id=ID+104,name="U"},
+		{id=ID+105,name="C"},
+		{id=ID+106,name="TUB"},
+		{id=ID+107,name="P"},
+		{id=ID+108,name="M"},
+		{id=ID+109,name="PL"},
+		{id=ID+200,name="Quick Model"},
+		{id=ID+400,name="Test"},
+	},
+}
 function create_menu()
 	local m = menu:new{name = "test1"}
 	for i = 1,3 do
@@ -46,6 +66,7 @@ function create_menu()
 	end
 	add_menu(frm,m)
 	add_menu(frm,menu1)
+	add_menu(frm,menu_steel)											--better
 end
 button = { fsState = TBSTATE_ENABLED, fsStyle = BTNS_BUTTON }
 function button:new(o)

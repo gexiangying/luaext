@@ -24,6 +24,11 @@ model = {	lk = {0.011707,-356.0,-68.0,-1.0},
 			},
 	objects = {},
 }
+
+local stl_cmd_ = require("steel_cmd");							-- better
+local stl_model_ = require("steel_model");								-- better
+
+
 function on_command(cmd,child)
 	if(cmd == ID + 2 ) then 
 		room.load_room_item()
@@ -35,16 +40,17 @@ function on_command(cmd,child)
 		remove_toolbar(frm,11041)
 	elseif(cmd == ID +6) then
 		test.test_iup()
+	elseif stl_cmd_.on_command(cmd) then							-- better
 	else luaext.msg("on_command",tostring(cmd))
 	end
 end
 
 function begin_select(ctrlkey)
-	if(ctrlkey == 0) then
-		select_ary = {}
-	else
-		select_ary.ctrlkey = true
-	end
+	-- if(ctrlkey == 0) then
+		-- select_ary = {}
+	-- else
+		-- select_ary.ctrlkey = true
+	-- end
 end
 
 function end_select()
@@ -59,13 +65,11 @@ local function trace_select()
 end
 
 function select_main(index)
-	--luaext.msg("select",tostring(index))
-	if(select_ary.ctrlkey and select_ary[index]) then
-		select_ary[index] =  nil
+	if (is_ctr_down() ~= 0) and stl_model_.get_select_ary_index(index) then
+		stl_model_.model_select(index, nil)
 	else
-		select_ary[index] = true
+		stl_model_.model_select(index, 1)
 	end
-	trace_select()
 end
 
 function select_sub(mainindex,subindex)
@@ -75,12 +79,12 @@ function select_sub(mainindex,subindex)
 end
 
 function on_lbuttondown(scene,flags,x,y)
---	trace_out("lua:on_lbuttondown()\n")
-scene_select(scene,x,y,10,10,1)
+	scene_select(scene,x,y,1,1,1)
+	stl_cmd_.on_lbuttondown(scene,flags,x,y)								-- better
 end
 
 function on_lbuttonup(scene,flags,x,y)
-	--trace_out("lua:on_lbuttonup()\n")
+	stl_cmd_.on_lbuttonup(scene,flags,x,y)								-- better
 end
 
 function on_mousemove(scene,flags,x,y)

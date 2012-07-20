@@ -3,29 +3,30 @@
 参数：构件表（只读）
 返回：对象表
 示例：
-	stl = require("steel");
-	h = {
+	local steel = require("steel");
+	local mem = {
 		section = "H200*150*20*15";
 		color = {r=1,g=0,b=0};
 		startpt = {x=0,y=0,z=0};
 		endpt = {800,0,0};
 		beta = 45;
 	};
-	o = stl.draw_member(h);
-	add_obj(frm,o);
+	local obj = steel.draw_member(mem);
+	add_obj(frm,obj);
 	
 
-2.	edit_member_property	
-功能：编辑构件属性（弹出对话框）
-参数：构件表（读写）
-返回：无
+2.	draw_plate	
+功能：绘制板
+参数：构件表（只读）
+返回：对象表
 示例：
-	stl = require("steel");
-	h = {
-		section = "H200*150*20*15";
-		color = {1,0,0};
-		startpt = {x=0,y=0,z=0};
-		endpt = {800,0,0};
+	local steel = require("steel");
+	local pl = {
+		sketch = "0";
+		color = {r=1,g=0.5,b=0};
+		points = {{700,-500,0}, {700,-1000,2000}, {100,500,2000}, {100,500,1500}, {100,1000,1500}, {100,1000,0}, {100,500,0};};
+		thick = 500;
 	};
-	stl.edit_member_property(h);
+	local obj = steel.draw_plate(pl);
+	add_obj(frm,obj);
 
