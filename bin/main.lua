@@ -9,7 +9,8 @@ local interface = require "interface"
 interface.create_menu()
 interface.create_toolbar()
 select_ary = {}
-model = {	lk = {0.011707,-356.0,-68.0,-1.0},
+model = {	--lk = {0.011707,-356.0,-68.0,-1.0},
+	lk = {0.207890,-310,-68,39},
 	texs={
 				{"images/mb04.bmp","REPEAT_TEXTURE"},
 				{"images/rosewd.bmp","REPEAT_TEXTURE"},
@@ -110,7 +111,16 @@ end
 function on_lbuttondblclk(scene,flags,x,y)
 	--trace_out("lua:on_lbuttondblclk()\n")
 end
+
 --load_apx("1.apx")
---trace_out("hello" .. " world\n")
 
+local function add_2_model(obj)
+--	trace_out("add_obj:index = " .. obj.index .. "\n")
+	add_obj(frm,obj)
+end
 
+local object = require "object"
+local obj1 = object.OBJ:new(test.obj1)
+local obj2 = object.OBJ:new(test.obj2)
+local obj3 = (obj1 - obj2)
+obj3:add_obj(add_2_model)
