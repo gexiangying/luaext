@@ -113,7 +113,9 @@ end
 function on_lbuttondblclk(scene,flags,x,y)
 	--trace_out("lua:on_lbuttondblclk()\n")
 end
-
+function free_scene(scene)
+--trace_out("free_secen\n")
+end
 --load_apx("1.apx")
 
 local function add_2_model(obj)
