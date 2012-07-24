@@ -30,7 +30,7 @@ local stl_cmd_ = require("steel_cmd");							-- better
 local stl_model_ = require("steel_model");								-- better
 
 
-function on_command(cmd,child)
+function on_command(cmd,scene)
 	if(cmd == ID + 1) then
 		new_child(frm,"main")
 	elseif(cmd == ID + 2 ) then 
