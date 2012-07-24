@@ -118,9 +118,14 @@ local function add_2_model(obj)
 --	trace_out("add_obj:index = " .. obj.index .. "\n")
 	add_obj(frm,obj)
 end
-
 local object = require "object"
 local obj1 = object.OBJ:new(test.obj1)
 local obj2 = object.OBJ:new(test.obj2)
 local obj3 = (obj1 - obj2)
+--obj3.hide = 1
+--obj3:add_obj(add_2_model)
+
+--local obj4 = obj3:clone()
+obj3:translate(2000.0,0.0,0.0)
+obj3:rotatex(30.0)
 obj3:add_obj(add_2_model)
