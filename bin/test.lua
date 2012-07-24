@@ -45,12 +45,16 @@ end
 -- void scene_rotate(scene,x,y,z)
 -- void scene_offset(scene,x,y,z)
 -- void scene_ortho(scene,0 or 1)
+-- void scene_addobj(scene,obj)
+-- void scene_delobj(scene,obj)
 -- int is_ctr_down()
 -- void crt_toolbar(frm,toolbar)
 -- void remove_toolbar(frm,id)
 -- TBSTATE_ENABLED BTNS_BUTTON BTNS_SEP
 -- add_menu(frm,{name=,items = { { id=,name=},}})
-
+-- horwindow(frm)
+-- verwindow(frm)
+-- caswindow(frm)
 function test_iup()
 	text_location = iup.text{expand="HORIZONTAL", id="text_location"}
 	btn_browse = iup.button{title="Browse", rastersize="x22",id="btn_browse"}
