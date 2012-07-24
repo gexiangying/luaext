@@ -31,7 +31,9 @@ local stl_model_ = require("steel_model");								-- better
 
 
 function on_command(cmd,child)
-	if(cmd == ID + 2 ) then 
+	if(cmd == ID + 1) then
+		new_child(frm,"main")
+	elseif(cmd == ID + 2 ) then 
 		room.load_room_item()
 	elseif(cmd == ID +3 )then
 		set_lineframe(frm,1)
@@ -129,3 +131,4 @@ local obj3 = (obj1 - obj2)
 obj3:translate(2000.0,0.0,0.0)
 obj3:rotatex(30.0)
 obj3:add_obj(add_2_model)
+new_child(frm,"main")

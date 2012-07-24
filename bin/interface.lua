@@ -129,12 +129,9 @@ local tool1 = toolbar:new{
 }
 function create_toolbar()
 	local tool = toolbar:new{id = 11040}
-	local but = button:new()
-	but:set(8,10002,"open")
-	tool:add_button(but)
-	for i = 9,11 do 
-		but = button:new()
-		but:set(i, ID + i - 9 + 2,"tool" .. i-9+2)
+	for i = 8,11 do 
+		local but = button:new()
+		but:set(i, ID + i - 8 + 1,"tool" .. i-9+2)
 		tool:add_button(but)
 	end
 	crt_toolbar(frm,tool)
