@@ -31,6 +31,7 @@ end
 -- int redis:subscribe() 0 = error
 --]]
 -- ID frm 
+-- void send_gcad(frm,msg) --send  to dlgbar
 -- add_obj(frm,o)
 -- remove_obj(scene,objindex)
 -- set_lineframe(frm,flag=0 or 1)

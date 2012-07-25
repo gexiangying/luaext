@@ -46,6 +46,8 @@ function on_command(cmd,scene)
 		remove_toolbar(frm,11041)
 	elseif(cmd == ID +6) then
 		test.test_iup()
+	elseif(cmd == ID +7) then
+		send_gcad(frm,"from lua")
 	elseif stl_cmd_.on_command(cmd) then							-- better
 	else luaext.msg("on_command",tostring(cmd))
 	end
@@ -126,7 +128,9 @@ end
 function free_scene(scene)
 --trace_out("free_secen\n")
 end
---load_apx("1.apx")
+function on_gcad_msg(scene,str)
+	trace_out( "gcad_msg: " .. str .. "\n")
+end
 
 function add_2_model(obj)
 --	trace_out("add_obj:index = " .. obj.index .. "\n")
