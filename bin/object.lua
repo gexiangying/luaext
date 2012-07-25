@@ -96,3 +96,8 @@ function TEXTURE:new(o)
 	setmetatable(o,self)	
 	return o
 end
+
+function init()
+	count  = 0
+	texcount = 0
+end

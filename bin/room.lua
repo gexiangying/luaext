@@ -108,6 +108,9 @@ function room_textures()
 	end
 end
 
+function init()
+	items = 1	
+end
 room_t = {
 	rotate = { x = -356.0, y = -68.0, z = -1.0},
 	cen = 	{ x = 0.0 , y = 0.0 , z = 0.0},

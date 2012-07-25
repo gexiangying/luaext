@@ -21,7 +21,10 @@ local stl_model_ = require("steel_model");								-- better
 
 function frm_on_command(cmd)
 	if(cmd == ID + 1) then
+		object.init()
+		room.init()
 		local s = new_child(frm,"main")
+		room.room_textures()
 		set_scene_t(s,room.room_t)
 --		file_open()
 	end
@@ -148,4 +151,3 @@ function file_open()
 	scene_addobj(s,obj3)
 	verwindow(frm)
 end
-room.room_textures()
