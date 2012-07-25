@@ -12,7 +12,7 @@ interface.create_menu()
 interface.create_toolbar()
 select_ary = {}
 model = {	--lk = {0.011707,-356.0,-68.0,-1.0},
-	lk = {0.207890,-310,-68,39},
+--	lk = {0.207890,-310,-68,39},
 	objects = {},
 }
 
@@ -21,7 +21,8 @@ local stl_model_ = require("steel_model");								-- better
 
 function frm_on_command(cmd)
 	if(cmd == ID + 1) then
-		new_child(frm,"main")
+		local s = new_child(frm,"main")
+		set_scene_t(s,room.room_t)
 --		file_open()
 	end
 end
@@ -33,6 +34,7 @@ function on_command(cmd,scene)
 		local obj = object.OBJ:new(room.load_room_item())
 		obj:add_obj(add_2_model)	
 		scene_addobj(scene,obj)
+		
 	elseif(cmd == ID +3 )then
 		set_lineframe(frm,1)
 	elseif(cmd == ID + 4) then
@@ -102,9 +104,16 @@ end
 function on_rbuttondown(scene,flags,x,y)
 	--trace_out("lua:on_rbuttondown()\n")
 end
+
 function on_rbuttonup(scene,flags,x,y)
 	--trace_out("lua:on_rbuttonup()\n")
 end
+
+function on_mbuttondblclk(scene,flags,x,y)
+	--trace_out("lua:on_rbuttondblclk()\n")
+	set_scene_t(scene,room.room_t)
+end
+
 function on_rbuttondblclk(scene,flags,x,y)
 	--trace_out("lua:on_rbuttondblclk()\n")
 end

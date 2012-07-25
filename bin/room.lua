@@ -107,3 +107,11 @@ function room_textures()
 		add_texture(frm,texture)
 	end
 end
+
+room_t = {
+	rotate = { x = -356.0, y = -68.0, z = -1.0},
+	cen = 	{ x = 0.0 , y = 0.0 , z = 0.0},
+	scale = 0.011707,
+	ortho = 0,
+	clip = { pt = { x = 0.0, y = 0.0, z = 0.0}, x = { x = 1.0 , y = 0.0 , z = 0.0 }, z = { x =0.0 , y = 0.0, z = 1.0},}
+}
