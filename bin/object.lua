@@ -74,6 +74,7 @@ function OBJ:add_obj(fun,t)
 		end
 	end
 end
+--[[
 local obj1 = OBJ:new()
 local obj2 = OBJ:new()
 local obj3 = (obj1 + obj2) 
@@ -82,3 +83,16 @@ local function test(o)
 end
 obj3:translate(2000.0,0.0,0.0)
 --obj3:add_obj(test)
+--]]
+texcount = 0
+REPEAT_TEXTURE = 1
+CLAMP_TEXTURE = 0
+TEXTURE = { ["type"] = REPEAT_TEXTURE}
+function TEXTURE:new(o)
+	o = o or {}
+  self.__index = self
+	texcount = texcount + 1
+	o.index = texcount
+	setmetatable(o,self)	
+	return o
+end

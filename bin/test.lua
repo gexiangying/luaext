@@ -32,7 +32,7 @@ end
 --]]
 -- ID frm 
 -- add_obj(frm,o)
--- remove_obj(frm,objindex)
+-- remove_obj(scene,objindex)
 -- set_lineframe(frm,flag=0 or 1)
 -- trace_out(str)
 -- x,y,z client_2_world(scene,x,y)

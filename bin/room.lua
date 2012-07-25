@@ -2,6 +2,7 @@ module(...,package.seeall)
 
 function load_apx(name)
 	local f = io.open(name,"r")
+	local obj = {}
 	while true do
 		local line = f:read("*line")
 		if not line then break end
@@ -16,8 +17,8 @@ function load_apx(name)
 			local obj_index = tonumber(string.match(line,"(%d+)"))
 			line = f:read("*line") --surfacen
 			surfn = tonumber(string.match(line,"(%d+)"))
-			model.objects[#model.objects + 1] = {}
-			local obj = model.objects[#model.objects]
+--			model.objects[#model.objects + 1] = {}
+--			local obj = model.objects[#model.objects]
 			obj.index = obj_index
 			obj.surfaces = {}
 			local surfaces = obj.surfaces
@@ -74,9 +75,10 @@ function load_apx(name)
 					s.quadrangles[k][4] = tonumber(p4) + 1
 				end --for quadric
 			end --end surface loop
-			add_obj(frm,obj);
+			--add_obj(frm,obj);
 		end --objnum
 	end --while
+return obj
 end --function
 
 local items = 1
@@ -84,5 +86,24 @@ function load_room_item()
 if items == 27 then return end
 	local apxname = "room/" .. tostring(items) .. ".apx"
 	items = items + 1
-	load_apx(apxname)
+	return load_apx(apxname)
+end
+
+function room_textures()
+	texs={
+				"images/mb04.bmp",
+				"images/rosewd.bmp",
+				"images/pine.bmp",
+				"images/sunset.bmp",
+				"images/lack2.bmp",
+				"images/128x128_1.bmp",
+				"images/128x128_4.bmp",
+				"images/128x128_3.bmp",
+				"images/128x128_2.bmp",
+				"images/kb.bmp",
+			}
+	for k,v in ipairs(texs) do
+		local texture = object.TEXTURE:new{name = v}	
+		add_texture(frm,texture)
+	end
 end

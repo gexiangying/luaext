@@ -6,35 +6,33 @@ local redis = require "luaredis"
 local room = require "room"
 local test = require "test"
 local interface = require "interface"
+local object = require "object"
+
 interface.create_menu()
 interface.create_toolbar()
 select_ary = {}
 model = {	--lk = {0.011707,-356.0,-68.0,-1.0},
 	lk = {0.207890,-310,-68,39},
-	texs={
-				{"images/mb04.bmp","REPEAT_TEXTURE"},
-				{"images/rosewd.bmp","REPEAT_TEXTURE"},
-				{"images/pine.bmp","REPEAT_TEXTURE"},
-				{"images/sunset.bmp","REPEAT_TEXTURE"},
-				{"images/lack2.bmp","REPEAT_TEXTURE"},
-				{"images/128x128_1.bmp","REPEAT_TEXTURE"},
-				{"images/128x128_4.bmp","REPEAT_TEXTURE"},
-				{"images/128x128_3.bmp","REPEAT_TEXTURE"},
-				{"images/128x128_2.bmp","REPEAT_TEXTURE"},
-				{"images/kb.bmp","REPEAT_TEXTURE"},
-			},
 	objects = {},
 }
 
 local stl_cmd_ = require("steel_cmd");							-- better
 local stl_model_ = require("steel_model");								-- better
 
+function frm_on_command(cmd)
+	if(cmd == ID + 1) then
+		new_child(frm,"main")
+--		file_open()
+	end
+end
 
 function on_command(cmd,scene)
 	if(cmd == ID + 1) then
 		new_child(frm,"main")
 	elseif(cmd == ID + 2 ) then 
-		room.load_room_item()
+		local obj = object.OBJ:new(room.load_room_item())
+		obj:add_obj(add_2_model)	
+		scene_addobj(scene,obj)
 	elseif(cmd == ID +3 )then
 		set_lineframe(frm,1)
 	elseif(cmd == ID + 4) then
@@ -118,24 +116,27 @@ function free_scene(scene)
 end
 --load_apx("1.apx")
 
-local function add_2_model(obj)
+function add_2_model(obj)
 --	trace_out("add_obj:index = " .. obj.index .. "\n")
 	add_obj(frm,obj)
 end
-local object = require "object"
-local obj1 = object.OBJ:new(test.obj1)
-local obj2 = object.OBJ:new(test.obj2)
-local obj3 = (obj1 - obj2)
---obj3.hide = 1
---obj3:add_obj(add_2_model)
 
---local obj4 = obj3:clone()
-obj3:translate(2000.0,0.0,0.0)
-obj3:rotatex(30.0)
-obj3:add_obj(add_2_model)
-local s = new_child(frm,"main")
-scene_addobj(s,obj1)
-scene_addobj(s,obj2)
-s = new_child(frm,"sub")
-scene_addobj(s,obj3)
-verwindow(frm)
+function file_open()
+	local obj1 = object.OBJ:new(test.obj1)
+	local obj2 = object.OBJ:new(test.obj2)
+	local obj3 = (obj1 - obj2)
+	--obj3.hide = 1
+	--obj3:add_obj(add_2_model)
+	
+	--local obj4 = obj3:clone()
+	obj3:translate(2000.0,0.0,0.0)
+	obj3:rotatex(30.0)
+	obj3:add_obj(add_2_model)
+	local s = new_child(frm,"main")
+	scene_addobj(s,obj1)
+	scene_addobj(s,obj2)
+	s = new_child(frm,"sub")
+	scene_addobj(s,obj3)
+	verwindow(frm)
+end
+room.room_textures()
