@@ -47,6 +47,8 @@ end
 -- void scene_ortho(scene,0 or 1)
 -- void scene_addobj(scene,obj)
 -- void scene_delobj(scene,obj)
+-- void set_scene_t(scene,scene_t)
+-- void add_texture(frm,TEXTURE)
 -- int is_ctr_down()
 -- void crt_toolbar(frm,toolbar)
 -- void remove_toolbar(frm,id)
