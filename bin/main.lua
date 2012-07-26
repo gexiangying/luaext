@@ -37,7 +37,7 @@ function on_command(cmd,scene)
 		local obj = object.OBJ:new(room.load_room_item())
 		obj:add_obj(add_2_model)	
 		scene_addobj(scene,obj)
-		
+		model.objects[#model.objects + 1] = obj	
 	elseif(cmd == ID +3 )then
 		set_lineframe(frm,1)
 	elseif(cmd == ID + 4) then
@@ -47,6 +47,13 @@ function on_command(cmd,scene)
 	elseif(cmd == ID +6) then
 		test.test_iup()
 	elseif(cmd == ID +7) then
+--[[
+		if(model.objects[1].hide == 1) then
+			model.objects[1].hide = 0
+			else model.objects[1].hide = 1
+		end
+		obj_hide(frm,model.objects[1])
+--]]
 		send_gcad(frm,"from lua")
 	elseif stl_cmd_.on_command(cmd) then							-- better
 	else luaext.msg("on_command",tostring(cmd))

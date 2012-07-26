@@ -33,6 +33,7 @@ end
 -- ID frm 
 -- void send_gcad(frm,msg) --send  to dlgbar
 -- add_obj(frm,o)
+-- obj_hide(frm,o)
 -- remove_obj(scene,objindex)
 -- set_lineframe(frm,flag=0 or 1)
 -- trace_out(str)
