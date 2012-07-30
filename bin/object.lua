@@ -2,6 +2,9 @@ module(...,package.seeall)
 --[[
 object={
 	index = 1,
+	localplacement = {base = {x,y,z},x = { x,y,z},z={x,y,z},beta},
+	hide = 0,
+	composed = { a= ,b=,op=},
 	surfaces = {
 		{points={r,g,b,u,v,x,y,z},lines={},triangles={},quadrangles={},outer={1,2,3,4},inners={{},{}},texts={{ptno=1,r,g,b,str},{},},},
 		{},

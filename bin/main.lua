@@ -55,6 +55,8 @@ function on_command(cmd,scene)
 		obj_hide(frm,model.objects[1])
 --]]
 		save_image(scene,"render.bmp");
+		os.execute("conver render.bmp render.png")
+		os.remove("render.bmp")
 		send_gcad(frm,"from lua")
 	elseif stl_cmd_.on_command(cmd) then							-- better
 	else luaext.msg("on_command",tostring(cmd))
