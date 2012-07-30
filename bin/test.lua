@@ -31,6 +31,7 @@ end
 -- int redis:subscribe() 0 = error
 --]]
 -- ID frm 
+-- void scene_color(scene,r,g,b)
 -- void save_image(scene,name)
 -- void send_gcad(frm,msg) --send  to dlgbar
 -- add_obj(frm,o)

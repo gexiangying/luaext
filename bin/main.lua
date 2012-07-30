@@ -37,6 +37,7 @@ function on_command(cmd,scene)
 		local obj = object.OBJ:new(room.load_room_item())
 		obj:add_obj(add_2_model)	
 		scene_addobj(scene,obj)
+		scene_color(scene,0.0,0.0,1.0)
 		model.objects[#model.objects + 1] = obj	
 	elseif(cmd == ID +3 )then
 		set_lineframe(frm,1)
