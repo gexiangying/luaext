@@ -1,5 +1,10 @@
 module(...,package.seeall)
-
+--[[
+--luapipe.new(cmd)
+--pipe:print(str)
+--pipe:closeout()
+--pipe:getline()
+--]]
 --[[
 function add_obj(window,obj)
 print(window)
@@ -197,4 +202,11 @@ obj4 = {
 			},
 		},
 	}
-
+function test_spawn_child()
+	local pipe = luapipe.new("./gchild.exe")
+	pipe:print("a=9.8\n")
+	pipe:print("b=6.8\n")
+	pipe:closeout()
+	str = pipe:getline()
+	trace_out(str)
+end

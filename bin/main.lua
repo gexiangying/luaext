@@ -10,6 +10,7 @@ local object = require "object"
 
 interface.create_menu()
 interface.create_toolbar()
+--test.test_spawn_child()
 select_ary = {}
 model = {	--lk = {0.011707,-356.0,-68.0,-1.0},
 --	lk = {0.207890,-310,-68,39},
