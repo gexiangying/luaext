@@ -287,11 +287,11 @@ static int lua_guid(lua_State* L)
 {
 	GUID id;
 	if(CoCreateGuid(&id) != S_OK){
-		lua_pushnil(L);
+		lua_pushstring(L,"error cocreate");
 		return 1;
 	}
 	char buf[24] = {0};
-	getString64FromGuid(&id,buf,strlen(buf)); 
+	getString64FromGuid(&id,buf,24); 
 	lua_pushstring(L,buf);
 	return 1;
 }
