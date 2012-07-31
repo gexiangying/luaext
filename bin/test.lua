@@ -1,5 +1,36 @@
 module(...,package.seeall)
 --[[
+-- luaaxis = { base=lua_pt,x=lua_pt,y=lua_pt,z=lua_pt,beta}
+-- pt = l2g(pt)
+-- pt = g2l(pt) 
+--]]
+--[[
+	{"__index",lua_get_index},
+	{"__newindex",lua_set_index},
+	{"mirrorxy",luapt_mirrorxy},
+	{"mirrorxz",luapt_mirrorxz},
+	{"mirroryz",luapt_mirroryz},
+	{"rotatex",luapt_rotatex}, (beta)
+	{"rotatey",luapt_rotatey}, (beta)
+	{"rotatez",luapt_rotatez},(beta)
+	{"len",luapt_len}, double()
+	{"len_to",luapt_len_to}, double(pt2)
+	{"scale",luapt_scale}, void(scale)
+	{"polarnorm",luapt_polarnorm}, void(len,norm)
+	{"polarpt",luapt_polarpt}, void(len,pt2)
+	{"__mul",luapt_mul}, pt * pt
+	{"dot",luapt_dot}, void(pt2)
+	{"__add",luapt_add}, pt + pt
+	{"__sub",luapt_sub}, pt - pt
+	{"normalize",luapt_normalize}, void()
+	{"normx",luapt_normx}, pt()
+	{"normx1",luapt_normx1}, pt()
+	{"normy",luapt_normy}, pt()
+	{"normy1",luapt_normy1}, pt()
+	{"normz",luapt_normz}, pt()
+	{"normz1",luapt_normz1}, pt()
+--]]
+--[[
 --luapipe.new(cmd)
 --pipe:print(str)
 --pipe:closeout()
@@ -13,6 +44,7 @@ end
 --]]
 --[[
 local t = luaext.str_machine(teststr)
+luaext.guid() return string(22)
 for k,v in ipairs(t) do
 trace_out(" type = " .. v["type"] .. ", value = " .. v["str"] .. "\n")
 end
@@ -209,4 +241,34 @@ function test_spawn_child()
 	pipe:closeout()
 	str = pipe:getline()
 	trace_out(str)
+end
+function test_luaaxis()
+	local axis = luaaxis.new()
+	local pt = luapt.new()
+	local x = pt.normx1()
+	trace_out("x=" .. x.x .. " y = " .. x.y .. " z = " .. x.z .. "\n")
+	local y = pt.normy()
+	local z = pt.normz1()
+	local axis1 = luaaxis.new(pt,x,y,z)
+	x = axis1.z
+	trace_out("x=" .. x.x .. " y = " .. x.y .. " z = " .. x.z .. "\n")
+	pt.x = 1.0
+	pt.z = 1.0
+	pt = axis1:l2g(pt)
+	trace_out("x=" .. pt.x .. " y = " .. pt.y .. " z = " .. pt.z .. "\n")
+	trace_out( "axis:beta = " .. axis1.beta .. "\n")
+end
+function test_luapt()
+	local pt = luapt.new()
+	local pt1 = luapt.new()
+	pt1.x = 4.0
+	trace_out("x=" .. pt.x .. " y = " .. pt.y .. " z = " .. pt.z .. "\n")
+	pt.x = 1.0
+	pt.y = 2.0
+	pt.z = 3.0
+	trace_out("x=" .. pt.x .. " y = " .. pt.y .. " z = " .. pt.z .. "\n")
+	local pt3 = pt + pt1
+	trace_out("x=" .. pt3.x .. " y = " .. pt3.y .. " z = " .. pt3.z .. "\n")
+	pt:normalize()
+	trace_out("x=" .. pt.x .. " y = " .. pt.y .. " z = " .. pt.z .. "\n")
 end
