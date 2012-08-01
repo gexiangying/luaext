@@ -13,6 +13,7 @@ object={
 --]]
 --
 count = 0
+--[[
 LOCALPLACE = { base = luapt.new() , x = luapt.normx() ,z = luapt.normz() ,beta = 0.0}
 function LOCALPLACE:new(o)
 	o = o or {}
@@ -23,7 +24,7 @@ end
 function LOCALPLACE:translate(x,y,z)
 	self.base = luapt.new(x,y,z)
 end
-
+--]]
 OBJ = {}
 OBJ.__add = function (a,b)
 	local t = OBJ:new()
@@ -56,12 +57,12 @@ function OBJ:new(o)
 	return o
 end
 function OBJ:rotatex(beta)
-	self.localplacement = LOCALPLACE:new(self.localplacement)
+	self.localplacement = self.localplacement or luaaxis.new()
 	self.localplacement["beta"] = beta
 end
 function OBJ:translate(x,y,z)
-	self.localplacement = LOCALPLACE:new(self.localplacement)
-	self.localplacement:translate(x,y,z)	
+	self.localplacement = self.localplacement or luaaxis.new()
+	self.localplacement.base = luapt.new(x,y,z)
 end
 function OBJ:add_obj(fun,t)
 	t = t or {}
