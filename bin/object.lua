@@ -2,7 +2,7 @@ module(...,package.seeall)
 --[[
 object={
 	index = 1,
-	localplacement = {base = {x,y,z},x = { x,y,z},z={x,y,z},beta},
+	localplacement = luaaxis.new(),
 	hide = 0,
 	composed = { a= ,b=,op=},
 	surfaces = {

@@ -36,10 +36,10 @@ function load_apx(name)
 				local s = surfaces[#surfaces]
 				--print( "surfacen = " .. i .. "  texid=" .. texid .. "  pointn=" .. pointn .. "  tri=" .. tri .. "  quadric=" .. quadric)
 				s.textured = texid
-				s.lines = {{1,2},{2,3}}
 				s.points = {}
 				s.triangles = {}
 				s.quadrangles = {}
+				--s.pts={1,2,3}
 				--s.outer = { 1,2,3,4}
 				--s.inners= { {1,2,3},{2,3,4}}
 				--s.texts = { {ptno=1,r=1,g=0,b=0,str="str1"},{ptno=2,r=1,g=0,b=0,str="str2≤‚ ‘"}}
