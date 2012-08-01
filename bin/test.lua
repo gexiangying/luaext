@@ -1,6 +1,7 @@
 module(...,package.seeall)
 --[[
 -- luaaxis = { base=lua_pt,x=lua_pt,y=lua_pt,z=lua_pt,beta}
+-- axis = new(base,x,y,z,beta)
 -- pt = l2g(pt)
 -- pt = g2l(pt) 
 --]]
@@ -23,6 +24,8 @@ module(...,package.seeall)
 	{"__add",luapt_add}, pt + pt
 	{"__sub",luapt_sub}, pt - pt
 	{"normalize",luapt_normalize}, void()
+-- luapt
+	pt = luapt.new(x,y,z)
 	{"normx",luapt_normx}, pt()
 	{"normx1",luapt_normx1}, pt()
 	{"normy",luapt_normy}, pt()
@@ -245,10 +248,10 @@ end
 function test_luaaxis()
 	local axis = luaaxis.new()
 	local pt = luapt.new()
-	local x = pt.normx1()
+	local x = luapt.new(-1.0)
 	trace_out("x=" .. x.x .. " y = " .. x.y .. " z = " .. x.z .. "\n")
-	local y = pt.normy()
-	local z = pt.normz1()
+	local y = luapt.normy()
+	local z = luapt.normz1()
 	local axis1 = luaaxis.new(pt,x,y,z)
 	x = axis1.z
 	trace_out("x=" .. x.x .. " y = " .. x.y .. " z = " .. x.z .. "\n")

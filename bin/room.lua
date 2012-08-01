@@ -112,9 +112,11 @@ function init()
 	items = 1	
 end
 room_t = {
-	rotate = { x = -356.0, y = -68.0, z = -1.0},
-	cen = 	{ x = 0.0 , y = 0.0 , z = 0.0},
+--	rotate = { x = -356.0, y = -68.0, z = -1.0},
+	rotate = luapt.new(-356.0,-78.0,-1.0),
+	cen = 	luapt.new(),
 	scale = 0.011707,
 	ortho = 0,
-	clip = { pt = { x = 0.0, y = 0.0, z = 0.0}, x = { x = 1.0 , y = 0.0 , z = 0.0 }, z = { x =0.0 , y = 0.0, z = 1.0},}
+	clip = { pt = luapt.new() , x = luapt.normx() , z = luapt.normz() }	
+	--clip = { pt = { x = 0.0, y = 0.0, z = 0.0}, x = { x = 1.0 , y = 0.0 , z = 0.0 }, z = { x =0.0 , y = 0.0, z = 1.0},}
 }

@@ -13,7 +13,7 @@ object={
 --]]
 --
 count = 0
-LOCALPLACE = { base = { x = 0.0, y = 0.0, z = 0.0}, x = { x =1.0,y=0.0,z=0.0},z = { x = 0.0,y=0.0,z = 1.0},beta = 0.0}
+LOCALPLACE = { base = luapt.new() , x = luapt.normx() ,z = luapt.normz() ,beta = 0.0}
 function LOCALPLACE:new(o)
 	o = o or {}
 	self.__index = self;
@@ -21,7 +21,7 @@ function LOCALPLACE:new(o)
 	return o;
 end
 function LOCALPLACE:translate(x,y,z)
-	self.base = { ["x"] = x,["y"] = y,["z"] = z}
+	self.base = luapt.new(x,y,z)
 end
 
 OBJ = {}
