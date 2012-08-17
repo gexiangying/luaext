@@ -6,7 +6,7 @@ object={
 	hide = 0,
 	composed = { a= ,b=,op=},
 	surfaces = {
-		{points={r,g,b,u,v,x,y,z},lines={},triangles={},quadrangles={},outer={1,2,3,4},inners={{},{}},texts={{ptno=1,r,g,b,str},{},},},
+		{points={r,g,b,u,v,x,y,z},lines={},triangles={},quadrangles={},pts = {1,2,3,},outer={1,2,3,4},inners={{},{}},texts={{ptno=1,r,g,b,str},{},},},
 		{},
 	},
 }

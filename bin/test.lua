@@ -92,8 +92,11 @@ end
 -- void scene_addobj(scene,obj)
 -- void scene_delobj(scene,obj)
 -- void set_scene_t(scene,scene_t)
+-- table get_scene_t(scene)
 -- void add_texture(frm,TEXTURE)
--- int is_ctr_down()
+-- boolean is_ctr_down()
+-- boolean is_shf_down()
+-- boolean is_alt_down()
 -- void crt_toolbar(frm,toolbar)
 -- void remove_toolbar(frm,id)
 -- TBSTATE_ENABLED BTNS_BUTTON BTNS_SEP
@@ -274,4 +277,15 @@ function test_luapt()
 	trace_out("x=" .. pt3.x .. " y = " .. pt3.y .. " z = " .. pt3.z .. "\n")
 	pt:normalize()
 	trace_out("x=" .. pt.x .. " y = " .. pt.y .. " z = " .. pt.z .. "\n")
+end
+function test_get_scene_t(s)
+	local t = get_scene_t(s)
+	trace_out("rotate{" .. t.rotate.x .. "," .. t.rotate.y .. "," ..t.rotate.z .. "}\n")
+	trace_out("cen{" .. t.cen.x .. "," .. t.cen.y .. "," ..t.cen.z .. "}\n")
+	trace_out("scale = " .. t.scale .."\n")
+	trace_out("ortho = " .. t.ortho .. "\n")
+
+	trace_out("clip.pt{" .. t.clip.pt.x .. "," .. t.clip.pt.y .. "," ..t.clip.pt.z .. "}\n")
+	trace_out("clip.x{" .. t.clip.x.x .. "," .. t.clip.x.y .. "," ..t.clip.x.z .. "}\n")
+	trace_out("clip.z{" .. t.clip.z.x .. "," .. t.clip.z.y .. "," ..t.clip.z.z .. "}\n")
 end

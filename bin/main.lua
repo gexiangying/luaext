@@ -50,7 +50,8 @@ function on_command(cmd,scene)
 	elseif(cmd == ID + 4) then
 		set_lineframe(frm,0)
 	elseif(cmd == ID +5) then
-		remove_toolbar(frm,11041)
+		--remove_toolbar(frm,11041)
+	  test.test_get_scene_t(scene)	
 	elseif(cmd == ID +6) then
 		test.test_iup()
 	elseif(cmd == ID +7) then
@@ -70,12 +71,7 @@ function on_command(cmd,scene)
 	end
 end
 
-function begin_select(ctrlkey)
-	-- if(ctrlkey == 0) then
-		-- select_ary = {}
-	-- else
-		-- select_ary.ctrlkey = true
-	-- end
+function begin_select()
 end
 
 function end_select()
@@ -90,7 +86,7 @@ local function trace_select()
 end
 
 function select_main(index)
-	if (is_ctr_down() ~= 0) and stl_model_.get_select_ary_index(index) then
+	if (is_ctr_down() ) and stl_model_.get_select_ary_index(index) then
 		stl_model_.model_select(index, nil)
 	else
 		stl_model_.model_select(index, 1)
@@ -144,6 +140,20 @@ function on_lbuttondblclk(scene,flags,x,y)
 end
 function free_scene(scene)
 --trace_out("free_secen\n")
+end
+function on_keydown(scene,key)
+--[[
+	trace_out("key press : " .. string.char(key) .. "\n")
+	if(is_ctr_down()) then
+		trace_out("ctrl keydown\n")
+	end
+	if(is_alt_down()) then
+		trace_out("alt\n")
+	end
+	if(is_shf_down()) then
+		trace_out("shift\n")
+	end
+--]]
 end
 function on_gcad_msg(scene,str)
 	trace_out( "gcad_msg: " .. str .. "\n")
