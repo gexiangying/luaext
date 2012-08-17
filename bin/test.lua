@@ -280,6 +280,7 @@ function test_luapt()
 end
 function test_get_scene_t(s)
 	local t = get_scene_t(s)
+	trace_out("offset{" .. t.offset.x .. "," .. t.offset.y .. "," ..t.offset.z .. "}\n")
 	trace_out("rotate{" .. t.rotate.x .. "," .. t.rotate.y .. "," ..t.rotate.z .. "}\n")
 	trace_out("cen{" .. t.cen.x .. "," .. t.cen.y .. "," ..t.cen.z .. "}\n")
 	trace_out("scale = " .. t.scale .."\n")
