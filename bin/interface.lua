@@ -91,7 +91,7 @@ function button:set(ibitmap,idcommand,istring)
 	self["idCommand"] = idcommand
 	self["iBitmap"] = ibitmap
 end
-toolbar = { bmpname = "toolbar.bmp",nbmps = 36, dxButton = 0, dyButton = 0,dxBitmap = 16,dyBitmap = 15}
+toolbar = { bmpname = "jnt.bmp",nbmps = 74, dxButton = 0, dyButton = 0,dxBitmap = 16,dyBitmap = 15}
 function toolbar:new(o)
 	local t = o or {}
 	self.__index = self
@@ -129,9 +129,9 @@ local tool1 = toolbar:new{
 }
 function create_toolbar()
 	local tool = toolbar:new{id = 11040}
-	for i = 8,11 do 
+	for i = 8,60 do 
 		local but = button:new()
-		but:set(i, ID + i - 8 + 1,"tool" .. i-9+2)
+		but:set(i + 7, ID + i - 8 + 1,"tool" .. i-9+2)
 		tool:add_button(but)
 	end
 	crt_toolbar(frm,tool)
