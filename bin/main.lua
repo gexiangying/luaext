@@ -35,7 +35,9 @@ function frm_on_command(cmd)
 --		file_open()
 	end
 end
-
+function on_timer(scene,idevent)
+	trace_out("ontimer:" .. idevent .. "\n")
+end
 function on_command(cmd,scene)
 	if(cmd == ID + 1) then
 		new_child(frm,"main")
@@ -51,9 +53,11 @@ function on_command(cmd,scene)
 		set_lineframe(frm,0)
 	elseif(cmd == ID +5) then
 		--remove_toolbar(frm,11041)
-	  test.test_get_scene_t(scene)	
+	  --test.test_get_scene_t(scene)	
+		set_timer(scene,ID+1000,1000)	
 	elseif(cmd == ID +6) then
-		test.test_iup()
+		--test.test_iup()
+		kill_timer(scene,ID+1000)
 	elseif(cmd == ID +7) then
 --[[
 		if(model.objects[1].hide == 1) then

@@ -38,6 +38,7 @@ module(...,package.seeall)
 --pipe:print(str)
 --pipe:closeout()
 --pipe:getline()
+--pipe:closein()
 --]]
 --[[
 function add_obj(window,obj)
@@ -104,6 +105,8 @@ end
 -- horwindow(frm)
 -- verwindow(frm)
 -- caswindow(frm)
+-- set_timer(scene,idevent,elapse)
+-- kill_timer(scene,idevent)
 function test_iup()
 	text_location = iup.text{expand="HORIZONTAL", id="text_location"}
 	btn_browse = iup.button{title="Browse", rastersize="x22",id="btn_browse"}
