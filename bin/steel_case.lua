@@ -76,10 +76,26 @@ local function add_pls()
 	end
 end
 
+local function add_other()
+	local ent = {
+		object = {
+			surfaces = {
+				{
+					points = {{0,0,0, 0,0, 0,0,0};{1.5,0,0, 0,0, 1000,0,0};{0,1,0, 0,0, 0,1000,0};{0,0,1, 0,0, 0,0,1000};};
+					lines = {{1,2},{1,3},{1,4};{2,3};{2,4};{3,4};};
+					triangles = {{1,3,2};{1,2,4};{1,4,3};{2,3,4};};
+				};
+			};
+		};
+	};
+	stl_model_.add_other(ent);
+end
+
 --main--
 function add()
 	-- stl_model_.add_member(mem)
 	add_nodes();
-	add_mems()
-	add_pls()
+	add_mems();
+	add_pls();
+	add_other();
 end

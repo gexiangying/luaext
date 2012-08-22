@@ -32,41 +32,88 @@ menu = { name = "test", items = {
 	},
 }
 --]]
-menu1 = { name = "test2", items = {
-	{ id = ID + 5, name = "test21"},
-	{ id = ID + 6, name = "test22"},
-  { id = ID + 7, name = "test23"},
+menu1 = { name = "Edit", items = {
+	{ id = ID + 5, name = "Line"},
+	{ id = ID + 6, name = "Cirle"},
+  { id = ID + 7, name = "Rrc"},
 	},
 }
-																		--better
+menu_help = { name = "Help", items = {
+	{ id = ID + 8, name = "Help Docment"},
+	{ id = ID + 9, name = "About ApBim"},
+	},
+}
+
+menu_user = {													
+	name = "User",
+	items = {
+		{id=ID+2000,name="Login"},
+	},
+}
+
+menu_select = {													
+	name = "Select",
+	items = {
+		{id=ID+1010,name="All"},
+		{id=ID+1020,name="None"},
+		{id=ID+1030,name="Reverse"},
+	},
+}
+
+
 menu_steel = {													
 	name = "Steel",
 	items = {
-		{id=ID+130,name="Add Member"},
 		{id=ID+110,name="Property"},
 		{id=ID+120,name="Delete"},
-		{id=ID+101,name="H"},
-		{id=ID+102,name="L"},
-		{id=ID+103,name="T"},
-		{id=ID+104,name="U"},
-		{id=ID+105,name="C"},
-		{id=ID+106,name="TUB"},
-		{id=ID+107,name="P"},
-		{id=ID+108,name="M"},
-		{id=ID+109,name="PL"},
-		{id=ID+200,name="Quick Model"},
-		{id=ID+400,name="Test"},
+		{id=ID+130,name="Add Member"},
+		{id=ID+140,name="Add Offset"},
+		{id=ID+150,name="Del Offset"},
+		-- {id=ID+101,name="H"},
+		-- {id=ID+102,name="L"},
+		-- {id=ID+103,name="T"},
+		-- {id=ID+104,name="U"},
+		-- {id=ID+105,name="C"},
+		-- {id=ID+106,name="TUB"},
+		-- {id=ID+107,name="P"},
+		-- {id=ID+108,name="M"},
+		-- {id=ID+109,name="PL"},
+		-- {id=ID+200,name="Quick Model"},
+		-- {id=ID+400,name="s2k"},
+		{id=ID+500,name="Test"},
 	},
 }
+
+--zb
+menu_model = {													
+	name = "Model",
+	items = {
+		{id=ID+5000,name="Open Model"},
+		{id=ID+5001,name="Save Model"},
+		{id=ID+5003,name="Save Have Loop Model"},
+		{id=ID+5002,name="Open Ifc Model"},
+		{id=ID+5004,name="Save Ifc Model"},
+		{id=ID+5005,name="Open Sap Model"},
+		{id=ID+5007,name="Open Staad Model"},
+		{id=ID+5006,name="Save Ifc File"},
+
+	},
+}
+
+
 function create_menu()
-	local m = menu:new{name = "test1"}
-	for i = 1,3 do
-		local item = menu_item:new{id = ID + i + 1,name = "test" .. i}
+	local m = menu:new{name = "Options"}
+	for i = 1,1 do
+		local item = menu_item:new{id = ID + i + 1,name = "Tool"}
 		m:add_item(item)
 	end
 	add_menu(frm,m)
 	add_menu(frm,menu1)
+	add_menu(frm,menu_user)												--better
+	add_menu(frm,menu_select)											--better
 	add_menu(frm,menu_steel)											--better
+	add_menu(frm,menu_model)											--zb
+	add_menu(frm,menu_help)											--zb
 end
 button = { fsState = TBSTATE_ENABLED, fsStyle = BTNS_BUTTON }
 function button:new(o)
@@ -129,11 +176,30 @@ local tool1 = toolbar:new{
 }
 function create_toolbar()
 	local tool = toolbar:new{id = 11040}
-	for i = 8,60 do 
+	for i = 1,55 do 					--zgb
+		local but = button:new()
+		but:set(i-1 , ID + i,"tool" .. i)
+		tool:add_button(but)
+	end
+	
+	
+--[[	for i = 8,60 do 
 		local but = button:new()
 		but:set(i + 7, ID + i - 8 + 1,"tool" .. i-9+2)
 		tool:add_button(but)
 	end
+--]]
+--toolbar = { bmpname = "jnt.bmp",nbmps = 74, dxButton = 0, dyButton = 0,dxBitmap = 16,dyBitmap = 15}
 	crt_toolbar(frm,tool)
-	crt_toolbar(frm,tool1)
+	
+	--zgb-----------------------------------------------------------------
+	local tool_tyl = toolbar:new{id = 11042,bmpname = "jnt_tyl.bmp",nbmps = 3,
+		buttons = {
+			button:new{iBitmap = 0,idCommand  = ID + 10,iString = "T.L.Lin"},
+			button:new{iBitmap = 1,idCommand  = ID + 11,iString = "T.L.Lin"},
+			button:new{iBitmap = 2,idCommand  = ID + 12,iString = "T.L.Lin"},
+		},	
+	};
+	crt_toolbar(frm,tool_tyl);	
+	--zgb-----------------------------------------------------------------
 end

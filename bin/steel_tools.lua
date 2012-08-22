@@ -1,5 +1,6 @@
 module (...,package.seeall)
 
+trace_out = trace_out or print;
 
 function deepcopy(object)
     local lookup_table = {}
@@ -20,6 +21,215 @@ function deepcopy(object)
 end
 
 
+function tostrtab(tab, tip)
+	local str_ = "";
+	local col_ = -1;
+	local strtab_ = {};
+	
+	local function get_col()
+		local str="";
+		for i=1, col_ do
+			str = str.."    ";
+		end	
+		return str;
+	end
+	
+	local function get_tip(tip)
+		if not tip then 
+			tip = get_col().."";
+			return tip;
+		end;
+		if type(tip)=="number" then
+			tip = get_col().."["..tip.."] = ";
+			return tip;
+		end	
+		tip = get_col()..tip.." = ";
+		return tip
+	end
+	
+	local function out_other(tab, tip)
+		if type(tab)=="nil" then
+			str_ = tip.."nil;\n";
+			strtab_[#strtab_+1] = str_;
+			return;	
+		end
+		if type(tab)=="boolean" then
+			if tab then
+				str_ = tip.."true;\n";
+				strtab_[#strtab_+1] = str_;
+			else
+				str_ = tip.."false;\n";
+				strtab_[#strtab_+1] = str_;
+			end
+			return;		
+		end
+		if type(tab)=="number" or type(tab)=="string" then
+			str_ = tip..tab..";\n";
+			strtab_[#strtab_+1] = str_;
+			return;
+		end
+		if type(tab)=="function" then
+			str_ = tip.."function;\n";
+			strtab_[#strtab_+1] = str_;
+			return;
+		end
+	end
+
+	local function get_metname(tab)
+		local metname = "";
+		local met = getmetatable(tab);
+		if met then
+			metname = met.name or "MetNoName"
+		end
+		return metname;
+	end
+
+	local function out(tab, tip)
+		col_ = col_+1;
+		tip = get_tip(tip);
+		if type(tab) == "table" then
+			str_ = tip..get_metname(tab).."{\n";
+			strtab_[#strtab_+1] = str_;
+			for k, v in pairs(tab) do
+				if v~=tab then
+					out(v, k);
+				end
+			end
+			str_ = get_col(col).."};\n"	
+			strtab_[#strtab_+1] = str_;
+		else
+			out_other(tab, tip);
+		end
+		col_ = col_-1;
+	end
+	
+	out(tab, tip);
+	return strtab_;
+end
+
+function tostr(tab, tip)
+	local str = "";
+	local strtab = tostrtab(tab,tip);
+	for i,v in ipairs(strtab) do
+		str = str..v;
+	end
+	return str;
+end
+
+function ocmd(tab, tip)
+	local str = tostr(tab, tip);
+	print(str);
+end
+
+function ofile(tab, tip)
+	local strtab = tostrtab(tab,tip);
+	io.output("a.c");
+	for i,v in ipairs(strtab) do
+		io.write(v);
+	end
+end
+function ofile_name(file_name,tab, tip)
+	local strtab = tostrtab(tab,tip);
+	io.output(file_name,"a");
+	--local f = io.open(file_name,"a");
+	for i,v in ipairs(strtab) do
+		io.write(v);
+	end
+	io.close();
+end
+
+function otrace(tab, tip)
+	local strtab = tostrtab(tab,tip);
+	for i,v in ipairs(strtab) do
+		trace_out(v);
+	end
+end
+
+
+
+-- function serialize(tab, tip)
+	-- local str = "";
+	-- local col = -1;
+	
+	-- local function get_col(col)
+		-- local str="";
+		-- for i=1, col do
+			-- str = str.."    ";
+		-- end	
+		-- return str;
+	-- end
+	
+	-- local function get_tip(tip)
+		-- if not tip then 
+			-- tip = get_col(col).."";
+			-- return tip;
+		-- end;
+		-- if type(tip)=="number" then
+			-- tip = get_col(col).."["..tip.."] = ";
+			-- return tip;
+		-- end	
+		-- tip = get_col(col)..tip.." = ";
+		-- return tip
+	-- end
+	
+	-- local function out_other(tab, tip)zz
+		-- if type(tab)=="nil" then
+			-- str = str..tip.."nil;\n";
+			-- return;	
+		-- end
+		-- if type(tab)=="boolean" then
+			-- if tab then
+				-- str = str..tip.."true;\n";
+			-- else
+				-- str = str..tip.."false;\n";
+			-- end
+			-- return;		
+		-- end
+		-- if type(tab)=="number" or type(tab)=="string" then
+			-- str = str..tip..tab..";\n";
+			-- return;
+		-- end
+	-- end
+
+	-- local function get_metname(tab)
+		-- local metname = "";
+		-- local met = getmetatable(tab);
+		-- if met then
+			-- metname = met.name or "MetNoName"
+		-- end
+		-- return metname;
+	-- end
+
+	-- local function out(tab, tip)
+		-- col = col+1;
+		-- tip = get_tip(tip);
+		-- if type(tab) == "table" then
+			-- str = str..tip..get_metname(tab).."{\n";
+			-- for k, v in pairs(tab) do
+				-- out(v, k);
+			-- end
+			-- str =str.. get_col(col).."};\n"	
+		-- else
+			-- out_other(tab, tip);
+		-- end
+		-- col = col-1;
+	-- end
+	
+	-- out(tab, tip);
+	-- return str;
+-- end
+
+
+function ismet(T,o)
+	local m = o
+	repeat
+		m = getmetatable(m);
+		if m==T then return true end;
+	until not m;
+	return false;
+end
+ 
+--[[
 function serialize(t)
 	local mark={}
 	local assign={}
@@ -46,14 +256,13 @@ function serialize(t)
 --	return "do local ret="..ser_table(t,"ret")..table.concat(assign," ").." return ret end"
 	return ser_table(t, "")
 end
- 
-
+--]]
 
 -------------------------------------
 
 function met(Type, o)
+	o = o or {}
 	Type.__index = Type;
-	o.__index = o;
 	setmetatable(o, Type);
 	return o;
 end

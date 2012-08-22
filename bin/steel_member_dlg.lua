@@ -2,8 +2,8 @@ package.cpath="?.dll;?51.dll";
 local iup = require "iuplua"
 local iupcontrol = require( "iupluacontrols" )
 local luaext = require "luaext"
-local stlent = require("steel_entity");
-local smd = require("steel_model");
+-- local stlent = require("steel_entity");
+local mgr_ = require("steel_mgr");
 module (...,package.seeall)
 
 local dlg = nil;
@@ -127,22 +127,30 @@ local function face()
 end
 
 local function cur()
-	local m = nil
-	if (smd.cur()) and (getmetatable(smd.cur())==stlent.Member) then 
-		m = smd.cur()
-	end
-	return m;
+	return mgr_.cur();
 end
 
 local function curs()
-	local ms = {}
-	for i, v in pairs(smd.curs()) do
-		if getmetatable(v)==stlent.Member then 
-			table.insert(ms, v);
-		end
-	end
-	return ms;
+	return mgr_.curs();
 end
+
+-- local function cur()
+	-- local m = nil
+	-- if (mgr_.cur()) and (getmetatable(mgr_.cur())==stlent.Member) then 
+		-- m = mgr_.cur()
+	-- end
+	-- return m;
+-- end
+
+-- local function curs()
+	-- local ms = {}
+	-- for i, v in pairs(mgr_.curs()) do
+		-- if getmetatable(v)==stlent.Member then 
+			-- table.insert(ms, v);
+		-- end
+	-- end
+	-- return ms;
+-- end
 
 local function property_to_dlg(mem)
 	if not mem then return end
@@ -195,7 +203,7 @@ local function property_to_mems(mems)
 end
 
 local function on_apply()
-	property_to_mem(smd.default_member());
+--	property_to_mem(mgr_.default_member());
 end
 
 local function on_modify()

@@ -1,7 +1,12 @@
 local luaext = require("luaext");
 local tools_  = require("steel_tools");
 local stl_ent_ = require("steel_entity");
+-- local ifc_ = require "ifc"
 module (...,package.seeall)
+
+
+model = model or {}
+
 
 model.db = model.db or {};
 model.nodes = model.nodes or {};
@@ -90,6 +95,11 @@ function new_id()
 	return model.maxid;
 end
 
+function cur_scene(sc)
+	model.cur_scene = sc or model.cur_scene;
+	return model.cur_scene;
+end
+
 function cur()
 	if model.curid then 
 		return model.db[model.curid]
@@ -152,13 +162,15 @@ end
 	model.curid = light and id;
 	select_ary[id] = light;
 	model.db[id].highlight = light;
-	stl_ent_.draw_entity(model.db[id]);
+	--stl_ent_.draw_entity(model.db[id]);
+	model.db[id]:draw();
 end
 
 function add_ent(ent)
 	local newid = new_id();
 	model.db[newid] = tools_.deepcopy(ent)
 	model.db[newid].id = newid;
+	model.db[newid].scene = cur_scene();
 	model_select(newid, nil);
 end
 
@@ -170,14 +182,25 @@ function add_member(mem)
 end
 
 function add_member_type(type)
+--	trace_out("steel_model:add_member_type(scene),scene = "..scene or "nil".."\n")
 	mem = require("steel_case_"..type).member;
 	add_member(mem);
 end
 
 function add_plate(pl)
-	pl = pl or model.default_plate;
+	pl = pl or default_.plate;
 	tools_.met(stl_ent_.Plate, pl);
 	add_ent(pl);
 --	stl_ent_.draw_entity(cur());
 end
+
+function add_other(ent)
+	tools_.met(stl_ent_.Entity, ent);
+	add_ent(ent);
+end
+
+-- function add_ifc(t)
+	-- tools_.ofile(t, "ifc");
+	-- add_ent(t);
+-- end
 
