@@ -246,6 +246,7 @@ function test_spawn_child()
 	pipe:print("b=6.8\n")
 	pipe:closeout()
 	str = pipe:getline()
+	pipe:closein()
 	trace_out(str)
 end
 function test_luaaxis()
