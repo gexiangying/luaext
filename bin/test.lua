@@ -81,6 +81,7 @@ end
 -- set_lineframe(frm,flag=0 or 1)
 -- trace_out(str)
 -- x,y,z client_2_world(scene,x,y)
+-- x,y world_2_client(scene,x,y,z)
 -- scene_select(scene,x,y,w,h,single)
 -- scene* new_child(frm,title)
 -- void scene_clip(scene,x1,y1,z1,x2,y2,z2)
