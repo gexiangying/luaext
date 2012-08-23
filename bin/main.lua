@@ -82,7 +82,8 @@ local modelcmd = require("model_cmd");							-- zgb
 local iup_axis  = require "iup_axis_dlg"						-- zgb
 
 
-
+function on_paint(scene)
+end
 function frm_on_command(cmd)
 	if(cmd == ID + 1) then
 ---[[
