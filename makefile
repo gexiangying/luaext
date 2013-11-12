@@ -1,5 +1,5 @@
 #BIN = /cygdrive/d/MinGWStudio/MinGw/bin/
-BIN = /cygdrive/c/mingw/bin/
+#BIN = /cygdrive/c/mingw/bin/
 CC = $(BIN)gcc 
 PRJ = luaext
 #CFLAGS = -mno-cygwin
@@ -16,7 +16,7 @@ INCPATH = -I./include
 LIBPATH = -L./lib
 LIBS = -ltrace -lcomctl32 -lole32 -lws2_32 -llua5.1
 #LDFLAGS = -mwindows -mno-cygwin
-LDFLAGS = -pipe -shared -Wl -mwindows
+LDFLAGS = -pipe -shared 
 DEPS = $(PRJ).dep
 SRCS :=$(wildcard *.c)
 HPPS :=$(wildcard *.h)
@@ -40,8 +40,6 @@ $(DEPS):$(SRCS) $(HPPS)
 -include $(DEPS)
 install:
 	cp $(PRJ).dll ../gcad/bin/
-	rm -rf bin/
-	mkdir bin
-	cp -r ../gcad/bin/* bin/
+	cp $(PRJ).dll bin/
 clean:
 	-@rm *.o $(PRJ).dll *.dep *.res
