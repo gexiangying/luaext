@@ -18,6 +18,7 @@ LIBS = -ltrace -lcomctl32 -lole32 -lws2_32 -llua5.1
 #LDFLAGS = -mwindows -mno-cygwin
 LDFLAGS = -pipe -shared 
 DEPS = $(PRJ).dep
+EXP = $(PRJ).exp
 SRCS :=$(wildcard *.c)
 HPPS :=$(wildcard *.h)
 OBJS :=$(patsubst %.c,%.o,$(SRCS))
@@ -27,8 +28,10 @@ WINDRES = $(BIN)windres
 all:$(PRJ).dll $(DEPS) tags
 tags:$(SRCS) $(HPPS)
 	ctags -R .
-$(PRJ).dll :$(OBJS) $(RRCS_OBJS)
-	$(CC) -o $@ $(OBJS) $(RRCS_OBJS) $(LIBPATH) $(LIBS) $(LDFLAGS)
+$(PRJ).dll :$(OBJS) $(RRCS_OBJS) $(EXP)
+	$(CC) -o $@ $(EXP) $(OBJS) $(RRCS_OBJS) $(LIBPATH) $(LIBS) $(LDFLAGS)
+$(EXP):$(PRJ).def
+	dlltool -e $@ -d $< --no-export-all-symbols
 %.o:%.c	
 	$(CC) $(CFLAGS) $(C_PROC) $(INCPATH) -c $< 
 %.res:%.rc
@@ -40,6 +43,5 @@ $(DEPS):$(SRCS) $(HPPS)
 -include $(DEPS)
 install:
 	cp $(PRJ).dll ../gcad/bin/
-	cp $(PRJ).dll bin/
 clean:
-	-@rm *.o $(PRJ).dll *.dep *.res
+	-@rm *.o $(PRJ).dll *.dep *.exp

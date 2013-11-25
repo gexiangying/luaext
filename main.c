@@ -3,6 +3,8 @@
 #include "include/lauxlib.h"
 #include <string.h>
 #include <objbase.h>
+#include "encrypt.h"
+#include "md5.h"
 #define FUN_TOKEN 1
 #define STR_TOKEN 2
 #define NUMBER_TOKEN 3
@@ -285,7 +287,7 @@ static char * getString64FromGuid( const GUID *pGuid, char * buf, int len )
 }
 #define CHAR_SCALE (sizeof(wchar_t)/sizeof(char))
 
-wchar_t * AToU (const char * str)
+static wchar_t * AToU (const char * str)
 {
 	int textlen;
 	wchar_t * result;
@@ -297,7 +299,7 @@ wchar_t * AToU (const char * str)
 	return result;
 }
 
-char * UToA (const wchar_t * str)
+static char * UToA (const wchar_t * str)
 {
 	char * result;
 	int textlen;
@@ -310,7 +312,7 @@ char * UToA (const wchar_t * str)
 	return result;
 }
 
-wchar_t * U8ToU (const char * str)
+static wchar_t * U8ToU (const char * str)
 {
 	int textlen;
 	wchar_t * result;
@@ -322,7 +324,7 @@ wchar_t * U8ToU (const char * str)
 	return result;
 }
 
-char * UToU8 (const wchar_t * str)
+static char * UToU8 (const wchar_t * str)
 {
 	char * result;
 	int textlen;
@@ -441,6 +443,30 @@ static int lua_guid(lua_State* L)
 	lua_pushstring(L,buf);
 	return 1;
 }
+static int lua_encrypt(lua_State* L)
+{
+	const char* s = lua_tostring(L,1);
+	char buffer[1024] = {0};
+	char* d = encrypt(s,buffer);
+  lua_pushstring(L,d);
+	return 1;
+}
+static int lua_decrypt(lua_State* L)
+{
+	const char* s = lua_tostring(L,1);
+	char buffer[1024] = {0};
+	char* d = decrypt(s,d);
+	lua_pushstring(L,d);
+	return 1;
+}
+static int lua_md5(lua_State* L)
+{
+	const char* s = lua_tostring(L,1);
+	char buffer[255] = {0};
+	char* d = md5(s);
+	lua_pushstring(L,d);
+	return 1;
+}
 static const struct luaL_Reg luaext [] = {
 	{"a2u",Unicode_a2u},
 	{"u2a",Unicode_u2a},
@@ -451,6 +477,9 @@ static const struct luaL_Reg luaext [] = {
 	{"msg",msg},
 	{"str_machine",str_machine},
 	{"guid",lua_guid},
+	{"md5",lua_md5},
+	{"encrypt",lua_encrypt},
+	{"decrypt",lua_decrypt},
 	{NULL,NULL}
 };
 int luaopen_luaext(lua_State *L){
