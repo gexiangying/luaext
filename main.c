@@ -3,8 +3,8 @@
 #include "include/lauxlib.h"
 #include <string.h>
 #include <objbase.h>
-#include "encrypt.h"
 #include "md5.h"
+#include "encrypt.h"
 #define FUN_TOKEN 1
 #define STR_TOKEN 2
 #define NUMBER_TOKEN 3
@@ -455,7 +455,7 @@ static int lua_decrypt(lua_State* L)
 {
 	const char* s = lua_tostring(L,1);
 	char buffer[1024] = {0};
-	char* d = decrypt(s,d);
+	char* d = decrypt(s,buffer);
 	lua_pushstring(L,d);
 	return 1;
 }
@@ -463,7 +463,7 @@ static int lua_md5(lua_State* L)
 {
 	const char* s = lua_tostring(L,1);
 	char buffer[255] = {0};
-	char* d = md5(s);
+	char* d = md5(s,buffer);
 	lua_pushstring(L,d);
 	return 1;
 }
