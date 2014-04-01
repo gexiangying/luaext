@@ -467,6 +467,13 @@ static int lua_md5(lua_State* L)
 	lua_pushstring(L,d);
 	return 1;
 }
+static int lua_sleepex(lua_State* L)
+{
+	DWORD dwMilliseconds = (DWORD)lua_tointeger(L,1);
+	DWORD result = SleepEx(dwMilliseconds,FALSE);
+	lua_pushinteger(L,result);
+	return 1;
+}
 static const struct luaL_Reg luaext [] = {
 	{"a2u",Unicode_a2u},
 	{"u2a",Unicode_u2a},
@@ -480,6 +487,7 @@ static const struct luaL_Reg luaext [] = {
 	{"md5",lua_md5},
 	{"encrypt",lua_encrypt},
 	{"decrypt",lua_decrypt},
+	{"sleepex",lua_sleepex},
 	{NULL,NULL}
 };
 int luaopen_luaext(lua_State *L){
