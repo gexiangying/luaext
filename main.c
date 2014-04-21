@@ -474,6 +474,77 @@ static int lua_sleepex(lua_State* L)
 	lua_pushinteger(L,result);
 	return 1;
 }
+
+static int lua_I16(lua_State* L)
+{
+	int num = 2;
+	int i = 0;
+	int a = lua_tonumber(L,1);
+	unsigned char* bytes = (unsigned char*)&a;
+	for(i = 0;i < num;i++)
+		lua_pushinteger(L,bytes[i]);
+	return num;
+}
+static int lua_I32(lua_State* L)
+{
+	int num = 4;
+	int i = 0;
+	int a = lua_tonumber(L,1);
+	unsigned char* bytes = (unsigned char*)&a;
+	for(i = 0;i < num;i++)
+		lua_pushinteger(L,bytes[i]);
+	return num;
+}
+static int lua_F64(lua_State* L)
+{
+	int num = 8;
+	int i = 0;
+	float a = lua_tonumber(L,1);
+	unsigned char* bytes = (unsigned char*)&a;
+	for(i = 0;i < num;i++)
+		lua_pushinteger(L,bytes[i]);
+	return num;
+}
+static int lua_F32(lua_State* L)
+{
+	int num = 4;
+	int i = 0;
+	float a = lua_tonumber(L,1);
+	unsigned char* bytes = (unsigned char*)&a;
+	for(i = 0;i < num;i++)
+		lua_pushinteger(L,bytes[i]);
+	return num;
+}
+static int lua_U32(lua_State* L)
+{
+	int num = 4;
+	int i = 0;
+	LONG a = lua_tonumber(L,1);
+	unsigned char* bytes = (unsigned char*)&a;
+	for(i = 0;i < num;i++)
+		lua_pushinteger(L,bytes[i]);
+	return num;
+}
+static int lua_U16(lua_State* L)
+{
+	int num = 2;
+	int i = 0;
+	LONG a = lua_tonumber(L,1);
+	unsigned char* bytes = (unsigned char*)&a;
+	for(i = 0;i < num;i++)
+		lua_pushinteger(L,bytes[i]);
+	return num;
+}
+static int lua_U8(lua_State* L)
+{
+	int num = 1;
+	int i = 0;
+	LONG a = lua_tonumber(L,1);
+	unsigned char* bytes = (unsigned char*)&a;
+	for(i = 0;i < num;i++)
+		lua_pushinteger(L,bytes[i]);
+	return num;
+}
 static const struct luaL_Reg luaext [] = {
 	{"a2u",Unicode_a2u},
 	{"u2a",Unicode_u2a},
@@ -488,6 +559,13 @@ static const struct luaL_Reg luaext [] = {
 	{"encrypt",lua_encrypt},
 	{"decrypt",lua_decrypt},
 	{"sleepex",lua_sleepex},
+	{"U8",lua_U8},
+	{"U16",lua_U16},
+	{"U32",lua_U32},
+	{"I16",lua_I16},
+	{"I32",lua_I32},
+	{"F32",lua_F32},
+	{"F64",lua_F64},
 	{NULL,NULL}
 };
 int luaopen_luaext(lua_State *L){
