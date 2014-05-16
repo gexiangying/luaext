@@ -1,6 +1,6 @@
 #include <windows.h>
-#include "include/lua.h"
-#include "include/lauxlib.h"
+#include "lua.h"
+#include "lauxlib.h"
 #include <string.h>
 #include <objbase.h>
 #include "md5.h"

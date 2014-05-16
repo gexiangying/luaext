@@ -8,4 +8,5 @@
 *.res
 *.dep
 *.swp
+*.dll
 tags
