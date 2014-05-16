@@ -152,6 +152,7 @@ static void add_token(G_TOKEN* token,lua_State* L,int i)
 	}
 	lua_rawseti(L,-2,i);
 }
+/*
 static int str_machine(lua_State* L)
 {
 	const char* str = lua_tostring(L,-1);
@@ -216,6 +217,8 @@ static int str_machine(lua_State* L)
 	}while(*str != 0);
 	return 1;
 }
+*/
+/*
 static int msg(lua_State *L)
 {
 	const char* title = luaL_checkstring(L,1);
@@ -223,6 +226,7 @@ static int msg(lua_State *L)
 	MessageBox(NULL,content,title,MB_OK);
 	return 0;
 }
+*/
 static const char *cConversionTable =
 //          1         2         3         4         5         6   
 //0123456789012345678901234567890123456789012345678901234567890123
@@ -552,8 +556,8 @@ static const struct luaL_Reg luaext [] = {
 	{"u82u",Unicode_u82u},
 	{"a2u8",Unicode_a2u8},
 	{"u82a",Unicode_u82a},
-	{"msg",msg},
-	{"str_machine",str_machine},
+//	{"msg",msg},
+//	{"str_machine",str_machine},
 	{"guid",lua_guid},
 	{"md5",lua_md5},
 	{"encrypt",lua_encrypt},
