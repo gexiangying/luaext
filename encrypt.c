@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "encrypt.h"
-#define LOW_CHAR 33
+#define LOW_CHAR 32
 #define HI_CHAR 127
 static char* shuffle(char* s,char* d,int num)
 {
