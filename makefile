@@ -12,11 +12,11 @@ endif
 ifeq ($(test),1)
 C_PROC += -DENABLE_TEST
 endif
-INCPATH = -I./include
-LIBPATH = -L./lib
+INCPATH = -I/usr/include
+LIBPATH = -L/usr/lib
 LIBS = -ltrace -lcomctl32 -lole32 -lws2_32 -llua5.1
 #LDFLAGS = -mwindows -mno-cygwin
-LDFLAGS = -pipe -shared 
+LDFLAGS = -pipe -shared -static
 DEPS = $(PRJ).dep
 EXP = $(PRJ).exp
 SRCS :=$(wildcard *.c)
