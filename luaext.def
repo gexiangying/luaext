@@ -2,3 +2,4 @@ LIBRARY luaext
 EXPORTS 
 luaopen_luaext @1
 luaopen_luaext_pipe @2
+luaopen_luaext_gl @3
