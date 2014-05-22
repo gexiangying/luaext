@@ -5,6 +5,7 @@
 #include <objbase.h>
 #include "md5.h"
 #include "encrypt.h"
+#include "mac.h"
 #define FUN_TOKEN 1
 #define STR_TOKEN 2
 #define NUMBER_TOKEN 3
@@ -549,6 +550,16 @@ static int lua_U8(lua_State* L)
 		lua_pushinteger(L,bytes[i]);
 	return num;
 }
+static int lua_mac(lua_State* L)
+{
+	char buf[19] = {0};
+	int flag = get_mac_str(buf);
+	if(flag)
+		lua_pushstring(L,buf);
+	else
+		lua_pushnil(L);
+	return 1;
+}
 static const struct luaL_Reg luaext [] = {
 	{"a2u",Unicode_a2u},
 	{"u2a",Unicode_u2a},
@@ -570,6 +581,7 @@ static const struct luaL_Reg luaext [] = {
 	{"I32",lua_I32},
 	{"F32",lua_F32},
 	{"F64",lua_F64},
+	{"mac",lua_mac},
 	{NULL,NULL}
 };
 int luaopen_luaext(lua_State *L){
