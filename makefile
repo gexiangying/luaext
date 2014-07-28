@@ -14,7 +14,7 @@ C_PROC += -DENABLE_TEST
 endif
 INCPATH = -I/usr/include
 LIBPATH = -L/usr/lib
-LIBS = -ltrace -lcomctl32 -lole32 -lopengl32 -llua5.1 -liphlpapi
+LIBS = -ltrace -lcomctl32 -lole32 -lopengl32 -llua5.1 -liphlpapi -lgdi32
 #LDFLAGS = -mwindows -mno-cygwin
 LDFLAGS = -pipe -shared -static
 DEPS = $(PRJ).dep

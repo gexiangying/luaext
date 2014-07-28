@@ -5,7 +5,6 @@
 #include <objbase.h>
 #include "md5.h"
 #include "encrypt.h"
-#include "mac.h"
 #define FUN_TOKEN 1
 #define STR_TOKEN 2
 #define NUMBER_TOKEN 3
@@ -540,6 +539,20 @@ static int lua_U16(lua_State* L)
 		lua_pushinteger(L,bytes[i]);
 	return num;
 }
+static int lua_wchar_split(lua_State* L)
+{
+	const wchar_t * str;
+	/*传递第一个参数 */
+	str= (wchar_t*) lua_tostring (L,-1);
+	int len = wcslen(str);
+	int i;
+	lua_newtable(L);
+	for(i=0; i < len; ++i){
+		lua_pushinteger(L,(int)str[i]);
+		lua_rawseti(L,-2,i+1);		
+	}
+	return 1;
+}
 static int lua_U8(lua_State* L)
 {
 	int num = 1;
@@ -550,16 +563,6 @@ static int lua_U8(lua_State* L)
 		lua_pushinteger(L,bytes[i]);
 	return num;
 }
-static int lua_mac(lua_State* L)
-{
-	char buf[19] = {0};
-	int flag = get_mac_str(buf);
-	if(flag)
-		lua_pushstring(L,buf);
-	else
-		lua_pushnil(L);
-	return 1;
-}
 static const struct luaL_Reg luaext [] = {
 	{"a2u",Unicode_a2u},
 	{"u2a",Unicode_u2a},
@@ -567,6 +570,7 @@ static const struct luaL_Reg luaext [] = {
 	{"u82u",Unicode_u82u},
 	{"a2u8",Unicode_a2u8},
 	{"u82a",Unicode_u82a},
+	{"wchar_split",lua_wchar_split},
 //	{"msg",msg},
 //	{"str_machine",str_machine},
 	{"guid",lua_guid},
@@ -581,7 +585,6 @@ static const struct luaL_Reg luaext [] = {
 	{"I32",lua_I32},
 	{"F32",lua_F32},
 	{"F64",lua_F64},
-	{"mac",lua_mac},
 	{NULL,NULL}
 };
 int luaopen_luaext(lua_State *L){
