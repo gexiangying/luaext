@@ -70,15 +70,15 @@ static UINT32 count_padding_bits ( UINT32 length )
 		c_bits = ( MOD_SIZE + BLOCK_SIZE - mod ) % BLOCK_SIZE;
 	return c_bits / BITS;
 }
-static STRING append_padding_bits (const  char * argv )
+static STRING append_padding_bits (const  char * argv,unsigned int slen )
 {
-	UINT32 msg_length = strlen ( argv );
+	UINT32 msg_length = slen;
 	UINT32 bit_length = count_padding_bits ( msg_length );
 	UINT64 app_length = msg_length * BITS;
 	STRING string;
 	string.message = (char *)malloc(msg_length + bit_length + APP_SIZE / BITS);
 	// Save message
-	strncpy ( string.message, argv, msg_length );
+	memcpy( string.message, argv, msg_length );
 	// Pad out to mod 64.
 	memset ( string.message + msg_length, 0, bit_length );
 	string.message [ msg_length ] = SINGLE_ONE_BIT;
@@ -87,7 +87,7 @@ static STRING append_padding_bits (const  char * argv )
 	string.length = msg_length + bit_length + sizeof( UINT64 );
 	return string;
 }
-char* md5(const char* s,char* d)
+char* md5(const char* s,char* d,unsigned int slen)
 {
 	STRING string;
 	UINT32 w[16];
@@ -104,7 +104,7 @@ char* md5(const char* s,char* d)
 	//for ( argIdx = 1; argIdx < argc; argIdx++ )
 	{
 		//string = append_padding_bits ( argv[ argIdx ] );
-		string = append_padding_bits (s);
+		string = append_padding_bits (s,slen);
 		// MD5 initialization.
 		chain[0] = A;
 		chain[1] = B;

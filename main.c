@@ -465,11 +465,13 @@ static int lua_decrypt(lua_State* L)
 }
 static int lua_md5(lua_State* L)
 {
-	const char* s = lua_tostring(L,1);
+	unsigned int slen = 0;
+	const char* s = luaL_checklstring(L,1,&slen);
 	char buffer[255] = {0};
-	char* d = md5(s,buffer);
+	char* d = md5(s,buffer,slen);
 	lua_pushstring(L,d);
-	return 1;
+	lua_pushinteger(L,slen);
+	return 2;
 }
 static int lua_sleepex(lua_State* L)
 {
