@@ -70,7 +70,7 @@ static UINT32 count_padding_bits ( UINT32 length )
 		c_bits = ( MOD_SIZE + BLOCK_SIZE - mod ) % BLOCK_SIZE;
 	return c_bits / BITS;
 }
-static STRING append_padding_bits (const  char * argv,unsigned int slen )
+static STRING append_padding_bits (const  char * argv,size_t slen )
 {
 	UINT32 msg_length = slen;
 	UINT32 bit_length = count_padding_bits ( msg_length );
@@ -87,7 +87,7 @@ static STRING append_padding_bits (const  char * argv,unsigned int slen )
 	string.length = msg_length + bit_length + sizeof( UINT64 );
 	return string;
 }
-char* md5(const char* s,char* d,unsigned int slen)
+char* md5(const char* s,char* d,size_t slen)
 {
 	STRING string;
 	UINT32 w[16];

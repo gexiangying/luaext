@@ -226,8 +226,8 @@ int luaopen_luaext_pipe(lua_State* L){
 	luaL_newmetatable(L,"ge.pipe");
 	lua_pushvalue(L,-1);
 	lua_setfield(L,-2,"__index");
-	luaL_register(L,NULL,luapipe_m);
-	luaL_register(L,"luaext.pipe",luapipe_f);
+	luaL_setfuncs(L,luapipe_m,0);
+	luaL_newlib(L,luapipe_f);
 	return 1;
 }
 

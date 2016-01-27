@@ -12,9 +12,9 @@ endif
 ifeq ($(test),1)
 C_PROC += -DENABLE_TEST
 endif
-INCPATH = -I/usr/include
-LIBPATH = -L/usr/lib
-LIBS = -ltrace -lcomctl32 -lole32 -lopengl32 -llua5.1 -liphlpapi -lgdi32
+INCPATH = -I/usr/local/include
+LIBPATH = -L/usr/local/lib
+LIBS = -ltrace -lcomctl32 -lole32 -lopengl32 -llua -liphlpapi -lgdi32
 #LDFLAGS = -mwindows -mno-cygwin
 LDFLAGS = -pipe -shared -static
 DEPS = $(PRJ).dep
@@ -42,6 +42,6 @@ $(DEPS):$(SRCS) $(HPPS)
 #	makedepend  -f$(DEPS)>&/dev/null *.c
 -include $(DEPS)
 install:
-	cp $(PRJ).dll ../gcad/bin/
+	cp $(PRJ).dll bin/
 clean:
 	-@rm *.o $(PRJ).dll *.dep *.exp

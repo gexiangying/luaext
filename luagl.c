@@ -330,6 +330,6 @@ static const struct luaL_Reg luagl_f[] = {
 };
 
 int luaopen_luaext_gl(lua_State* L){
-	luaL_register(L,"luaext.gl",luagl_f);
+	luaL_newlib(L,luagl_f);
 	return 1;
 }
