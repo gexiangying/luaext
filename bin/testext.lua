@@ -20,5 +20,16 @@ until not line
 for k,v in pairs(macs) do
 	print(k)
 end
+print("------------------------------------")
 pipe:closeout()
 pipe:closein()
+--print(luaext.mac())
+local mac_str = luaext.mac()
+macs = {}
+string.gsub(mac_str,"(%x%x%-%x%x%-%x%x%-%x%x%-%x%x%-%x%x)\r\n",function(s)
+	macs[s] = true
+end)
+
+for k,v in pairs(macs) do
+	print(k)
+end

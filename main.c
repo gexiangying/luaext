@@ -6,6 +6,7 @@
 #include "md5.h"
 #include "encrypt.h"
 #include "guid.h"
+#include "mac.h"
 static int lua_guid(lua_State* L)
 {
 	GUID id;
@@ -43,9 +44,18 @@ static int lua_md5(lua_State* L)
 	lua_pushstring(L,d);
 	return 1;
 }
+static int lua_get_mac(lua_State* L)
+{
+	char* mac = get_mac_str();
+	lua_pushstring(L,mac);
+	free(mac);
+	return 1;
+}
+
 static const struct luaL_Reg luaext [] = {
 	{"guid",lua_guid},
 	{"md5",lua_md5},
+	{"mac",lua_get_mac},
 	{"encrypt",lua_encrypt},
 	{"decrypt",lua_decrypt},
 	{NULL,NULL}
