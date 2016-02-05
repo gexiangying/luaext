@@ -3,3 +3,4 @@ EXPORTS
 luaopen_luaext @1
 luaopen_luaext_pipe @2
 luaopen_luaext_gl @3
+luaopen_luaext_glib @4
