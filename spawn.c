@@ -162,12 +162,16 @@ static int lua_new_pipe(lua_State* L)
 	//TRACE_OUT("lua_new pipe %s\n",cmd);
 	SPAWN_PIPE pipes = (SPAWN_PIPE)lua_newuserdata(L,sizeof(struct _spawn_pipe_));
 	if(!pipes){
-		error(L,"*error* : create pipes !\n");
+		//error(L,"*error* : create pipes !\n");
+		lua_pushnil(L);
 		return 1;
 	}
 	memset(pipes,0,sizeof(struct _spawn_pipe_));
 	if(spawn_child(cmd,pipes) == 0){
-		error(L,"*error* : spawn_child %s !\n",cmd);
+		//error(L,"*error* : spawn_child %s !\n",cmd);
+		lua_pop(L,1);
+		free(pipes);
+		lua_pushnil(L);
 		return 1;
 	}
 	luaL_getmetatable(L,"ge.pipe");
