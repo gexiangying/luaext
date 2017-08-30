@@ -2,6 +2,13 @@
 #include <GL/gl.h>
 #include "lua.h"
 #include "lauxlib.h"
+static int lua_glScaled(lua_State* L){
+	double x = lua_tonumber(L,1);
+	double y = lua_tonumber(L,2);
+	double z = lua_tonumber(L,3);
+	glScaled(x,y,z);
+	return 0;
+}
 static int lua_glMultMatrixd(lua_State* L){
 	GLdouble m[4][4]; 
 	ZeroMemory(&m[0][0],sizeof(m));
@@ -431,6 +438,7 @@ static const struct luaL_Reg luagl_f[] = {
 	{"glTranslated",lua_glTranslated},
 	{"glRotated",lua_glTranslated},
 	{"glMultMatrixd",lua_glMultMatrixd},
+	{"glScaled",lua_glScaled},
 	{NULL,NULL}
 };
 
