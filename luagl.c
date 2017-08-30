@@ -2,11 +2,40 @@
 #include <GL/gl.h>
 #include "lua.h"
 #include "lauxlib.h"
+static int lua_glMultMatrixd(lua_State* L){
+	GLdouble m[4][4]; 
+	ZeroMemory(&m[0][0],sizeof(m));
+	int i,j;
+	for(i = 0; i < 4; i++)
+		for(j = 0; j < 4; j++){
+			lua_rawgeti(L,-1,i * 4 + j * 1);
+			m[i][j] = lua_tonumber(L,-1);
+			lua_pop(L,1);
+		}
+	glMultMatrixd(&m[0][0]);
+	return 0;
+}
 static int lua_glTexCoord2d(lua_State* L)
 {
 	double s = lua_tonumber(L,1);
 	double t = lua_tonumber(L,2);
 	glTexCoord2d(s,t);
+	return 0;
+}
+static int lua_glRotated(lua_State* L){
+	double angle = lua_tonumber(L,1);
+	double x = lua_tonumber(L,2);
+	double y = lua_tonumber(L,3);
+	double z = lua_tonumber(L,4);
+	glRotated(angle,x,y,z);
+	return 0;
+}
+static int lua_glTranslated(lua_State* L)
+{
+	double x = lua_tonumber(L,1);
+	double y = lua_tonumber(L,2);
+	double z = lua_tonumber(L,3);
+	glTranslated(x,y,z);
 	return 0;
 }
 static int lua_glColor3d(lua_State* L)
@@ -299,6 +328,75 @@ static int lua_ReadBmpTexture(lua_State* L)
 	lua_pushlightuserdata(L,imagedata);
 	return 3;
 }
+static int lua_glPushMatrix(lua_State* L){
+	glPushMatrix();
+	return 0;
+}
+static int lua_glPopMatrix(lua_State* L){
+	glPopMatrix();
+	return 0;
+}
+static void inside(GLuint a,GLuint b,GLenum face,GLenum test)
+{
+	glEnable(GL_CULL_FACE); 
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_STENCIL_TEST);
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+	glCullFace(face);
+	glCallList(a);
+
+	glDepthMask(GL_FALSE);
+	glEnable(GL_STENCIL_TEST);
+	glStencilFunc(GL_ALWAYS, 0, 0);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
+	glCullFace(GL_BACK);
+	glCallList(b);
+
+	glStencilOp(GL_KEEP, GL_KEEP, GL_DECR);
+	glCullFace(GL_FRONT);
+	glCallList(b);
+
+
+	glDepthMask(GL_TRUE);
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+	glStencilFunc(test, 0, 1);
+	glDisable(GL_DEPTH_TEST);
+	glCullFace(face);
+	glCallList(a);
+
+	glDisable(GL_STENCIL_TEST);
+	glEnable(GL_DEPTH_TEST);
+}
+static void fixup(GLuint glid)
+{
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_STENCIL_TEST);
+	glDepthFunc(GL_ALWAYS);
+	glCallList(glid);
+
+	glDepthFunc(GL_LESS);
+}
+static int lua_and_obj(lua_State* L)
+{
+	int a = lua_tointeger(L,1);
+	int b = lua_tointeger(L,2);
+	inside(a,b,GL_BACK,GL_NOTEQUAL);
+	fixup(b);
+	inside(b,a,GL_BACK,GL_NOTEQUAL);
+	return 0;
+}
+static int lua_sub_obj(lua_State* L)
+{
+	int a = lua_tointeger(L,1);
+	int b = lua_tointeger(L,2);
+	inside(b,a,GL_FRONT,GL_NOTEQUAL);
+	fixup(a);
+	//inside(b,a,GL_FRONT,GL_NOTEQUAL);
+	inside(a,b,GL_BACK,GL_EQUAL);
+	return 0;
+}
+
 static const struct luaL_Reg luagl_f[] = {
 	{"glGenLists",lua_glGenLists},
 	{"glCallList",lua_glCallList},
@@ -326,6 +424,13 @@ static const struct luaL_Reg luagl_f[] = {
 	{"GetDC",lua_GetDC},
 	{"ReleaseDC",lua_ReleaseDC},
 	{"glLoadName",lua_glLoadName},
+	{"glPopMatrix",lua_glPopMatrix},
+	{"glPushMatrix",lua_glPushMatrix},
+	{"glAndObj",lua_and_obj},
+	{"glSubObj",lua_sub_obj},
+	{"glTranslated",lua_glTranslated},
+	{"glRotated",lua_glTranslated},
+	{"glMultMatrixd",lua_glMultMatrixd},
 	{NULL,NULL}
 };
 

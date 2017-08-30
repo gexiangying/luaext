@@ -80,11 +80,14 @@ int set_method(lua_State* L,const char* classname,const char* funcname,lua_CFunc
 	 */
 static int NewClass(lua_State *L)
 {
+	const char* classname = lua_tostring(L,1);
 	lua_newtable(L);     /* push t */
 	lua_pushstring(L, "class");  /* push "class" */
 	lua_pushvalue(L, 1); /* push again the class_name to the stack, because settable will remove it */
 	lua_settable(L, -3); /* t.class = class_name */
 	lua_settable(L, LUA_REGISTRYINDEX);  /* registry[class_name] = t */
+	index_self(L,classname);
+	//set_method(L,classname,"__gc",glibHandle_gc);
 	return 0;
 }
 
