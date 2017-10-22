@@ -25,6 +25,7 @@ pipe:closeout()
 pipe:closein()
 --print(luaext.mac())
 local mac_str = luaext.mac()
+print(mac_str)
 macs = {}
 string.gsub(mac_str,"(%x%x%-%x%x%-%x%x%-%x%x%-%x%x%-%x%x)\r\n",function(s)
 	macs[s] = true

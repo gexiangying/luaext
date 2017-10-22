@@ -3,7 +3,6 @@
 #include <windows.h>
 #include <stdarg.h>
 #include <stdio.h>
-#include "trace.h"
 #define MAX_PIPE_BUF 4096
 struct _spawn_pipe_
 {
@@ -13,16 +12,6 @@ struct _spawn_pipe_
 	int size_;
 	char buf[MAX_PIPE_BUF];
 };
-static void error(lua_State* L,const char* fmt,...)
-{
-	char buf[1024] = {0};
-	va_list argp;
-	va_start(argp,fmt);
-	vsprintf(buf,fmt,argp);
-	va_end(argp);
-	TRACE_OUT(buf);
-	//lua_close(L);
-}
 static int get_imp(HANDLE in,char* buf,int max,int* cur)
 {
 	*cur = 0;
@@ -159,16 +148,13 @@ int spawn_child(const char* cmd,SPAWN_PIPE pipes)
 static int lua_new_pipe(lua_State* L)
 {
 	const char* cmd = lua_tostring(L,1);
-	//TRACE_OUT("lua_new pipe %s\n",cmd);
 	SPAWN_PIPE pipes = (SPAWN_PIPE)lua_newuserdata(L,sizeof(struct _spawn_pipe_));
 	if(!pipes){
-		//error(L,"*error* : create pipes !\n");
 		lua_pushnil(L);
 		return 1;
 	}
 	memset(pipes,0,sizeof(struct _spawn_pipe_));
 	if(spawn_child(cmd,pipes) == 0){
-		//error(L,"*error* : spawn_child %s !\n",cmd);
 		lua_pop(L,1);
 		free(pipes);
 		lua_pushnil(L);
