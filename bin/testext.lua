@@ -9,10 +9,17 @@ print(id)
 --]]
 local luaext_pipe = require "luaext.pipe"
 local pipe = luaext_pipe.new("ipconfig /all")
+--local pipe = luaext_pipe.new("bad")
+if not pipe then 
+	print("Create error!")
+	return 
+end
+
 local macs = {}
 repeat
 	local line = pipe:getline()
 	if line then
+--		print(line)
 		local mac = string.match(line,"%s+(%x%x%-%x%x%-%x%x%-%x%x%-%x%x%-%x%x)%s+")
 		if mac then macs[mac] = true end
 	end

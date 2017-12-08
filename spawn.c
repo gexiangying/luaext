@@ -117,6 +117,8 @@ static int create_child(const char* cmd,const char* env,const char* curpath,SPAW
 			&siStartInfo,  // STARTUPINFO pointer 
 			&piProcInfo);  // receives PROCESS_INFORMATION 
 	free(child_env);
+	CloseHandle(piProcInfo.hThread);
+	CloseHandle(piProcInfo.hProcess);
 	return bOK;
 }
 static int dup_pipes(SPAWN_PIPE pipes)
