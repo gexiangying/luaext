@@ -2,7 +2,7 @@
 #define _SPAWN_H_
 #include "lua.h"
 typedef struct _spawn_pipe_* SPAWN_PIPE;
-int spawn_child(const char* cmd,SPAWN_PIPE pipes);
+int spawn_child(const char* cmd,const char* env,const char* curpath,SPAWN_PIPE pipes);
 SPAWN_PIPE create_spawnpipe();
 void free_spawnpipe(SPAWN_PIPE pipes);
 int pipe_printf(SPAWN_PIPE pipes,const char* format,...);

@@ -80,7 +80,7 @@ void free_spawnpipe(SPAWN_PIPE pipes)
 {
 	free(pipes);
 }
-static int create_child(const char* cmd,SPAWN_PIPE pipes)
+static int create_child(const char* cmd,const char* env,const char* curpath,SPAWN_PIPE pipes)
 {
 	PROCESS_INFORMATION piProcInfo; 
 	STARTUPINFO siStartInfo; 
@@ -94,17 +94,30 @@ static int create_child(const char* cmd,SPAWN_PIPE pipes)
 	siStartInfo.hStdInput = pipes->in;
 	siStartInfo.hStdOutput = pipes->out;
 	siStartInfo.hStdError = pipes->out;
+	char* child_env = NULL;
+	if(env) {
+		child_env = calloc(strlen(env) + 1,sizeof(char));
+		strcpy(child_env,env);
+		char* dest = child_env;
+		while(dest[0]){
+			dest = strchr(dest,'\n');
+			dest[0] = '\0';
+			dest = dest + 1;
+		}
+	}
 	// Create the child process. 
-	return CreateProcess(NULL, 
+	BOOL bOK = CreateProcess(NULL, 
 			(LPTSTR)cmd,       // command line 
 			NULL,          // process security attributes 
 			NULL,          // primary thread security attributes 
 			TRUE,          // handles are inherited 
 			0,             // creation flags 
-			NULL,          // use parent's environment 
-			NULL,          // use parent's current directory 
+			(LPVOID)child_env,          // use parent's environment 
+			curpath,          // use parent's current directory 
 			&siStartInfo,  // STARTUPINFO pointer 
 			&piProcInfo);  // receives PROCESS_INFORMATION 
+	free(child_env);
+	return bOK;
 }
 static int dup_pipes(SPAWN_PIPE pipes)
 {
@@ -124,7 +137,7 @@ static int dup_pipes(SPAWN_PIPE pipes)
 	pipes->out = temp;
 	return result;
 }
-int spawn_child(const char* cmd,SPAWN_PIPE pipes)
+int spawn_child(const char* cmd,const char* env,const char* curpath,SPAWN_PIPE pipes)
 {
 	SECURITY_ATTRIBUTES saAttr; 
 	struct _spawn_pipe_ child = {0};
@@ -139,8 +152,13 @@ int spawn_child(const char* cmd,SPAWN_PIPE pipes)
 		return 0;
 	}
 	dup_pipes(pipes);
-	if(!create_child(cmd,&child))
+	if(!create_child(cmd,env,curpath,&child)){
+		CloseHandle(child.in);
+		CloseHandle(pipes->out);
+		CloseHandle(child.out);
+		CloseHandle(pipes->in);
 		return 0;
+	}
 	CloseHandle(child.in);
 	CloseHandle(child.out);
 	return 1;
@@ -148,13 +166,15 @@ int spawn_child(const char* cmd,SPAWN_PIPE pipes)
 static int lua_new_pipe(lua_State* L)
 {
 	const char* cmd = lua_tostring(L,1);
+	const char* env = lua_tostring(L,2);
+	const char* curpath = lua_tostring(L,3);
 	SPAWN_PIPE pipes = (SPAWN_PIPE)lua_newuserdata(L,sizeof(struct _spawn_pipe_));
 	if(!pipes){
 		lua_pushnil(L);
 		return 1;
 	}
 	memset(pipes,0,sizeof(struct _spawn_pipe_));
-	if(spawn_child(cmd,pipes) == 0){
+	if(spawn_child(cmd,env,curpath,pipes) == 0){
 		lua_pop(L,1);
 		free(pipes);
 		lua_pushnil(L);
@@ -167,9 +187,10 @@ static int lua_new_pipe(lua_State* L)
 static int lua_pipe_print(lua_State* L)
 {
 	SPAWN_PIPE pipes = (SPAWN_PIPE)lua_touserdata(L,1);
-	const char* str = lua_tostring(L,2);
+	size_t len = 0;
+	const char* str = lua_tolstring(L,2,&len);
 	unsigned long count = 0;
-	BOOL flag = WriteFile(pipes->out,str,strlen(str),&count,NULL);
+	BOOL flag = WriteFile(pipes->out,str,len,&count,NULL);
 	if(flag)
 		lua_pushinteger(L,flag);
 	else 
